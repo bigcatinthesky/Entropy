@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class ShipMovmentSystem : MonoBehaviour
 {
+    //blah
     private StateManager stateManagerX;
     private StateManager stateManagerY;
     private StateManager stateManagerZ;
