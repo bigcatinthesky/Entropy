@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee9c2d8209110ca6999819da8dd35b6b, type: 3}
   m_Name: SerpentFrieght
   m_EditorClassIdentifier: Assembly-CSharp::ShipProfile
-  foreAcclerationForce: 0
-  aftAccelerationForce: 0
-  tangentAcclerationForce: 0
-  torqueForce: 0
+  foreAcclerationForce: 500
+  aftAccelerationForce: 250
+  tangentAcclerationForce: 100
+  torqueForce: 5

@@ -1,35 +1,26 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using NUnit.Framework;
+using Unity.VisualScripting;
+using System;
 
 public class ShipMovmentSystem : MonoBehaviour
 {
+    //Temp, to be replaced by control system
+    [Header("Input Actions")]
+    [SerializeField] private InputActionReference move;
+    [SerializeField] private InputActionReference rotate;
+
     private StateManager stateManagerX;
     private StateManager stateManagerY;
     private StateManager stateManagerZ;
     private RotationStateManager rotationStateManagerX;
     private RotationStateManager rotationStateManagerY;
     private RotationStateManager rotationStateManagerZ;
-
     private ShipManager shipManager;
-    // private Rigidbody rb;
-    // private Transform trans;
-    // private float foreAcclerationForce;
-    // private float aftAccelerationForce;
-    // private float tangentAcclerationForce;
-    // private float torqueForce;
-
-    [Header("Input Actions")]
-    [SerializeField] private InputActionReference move;
-    [SerializeField] private InputActionReference rotate;
-
-    private List<ParticleSystem> forwardThrusters;
-    private List<ParticleSystem> backwardThrusters;
-    private List<ParticleSystem> leftThrusters;
-    private List<ParticleSystem> rightThrusters;
-    private List<ParticleSystem> upThrusters;
-    private List<ParticleSystem> downThrusters;
-    // [SerializeField] private List<ParticleSystem> VTOLThrusters;
+    private Dictionary<string,List<ParticleSystem>> moveThrusters;
+    public Dictionary<string,List<ParticleSystem>> MoveThrusters { get { return moveThrusters; } }
 
     private void OnEnable()
     {
@@ -42,15 +33,8 @@ public class ShipMovmentSystem : MonoBehaviour
         move.action.Disable();
         rotate.action.Disable();
     }
-
-    void Start()
+    private void initStateManagers()
     {
-        shipManager = GetComponent<ShipManager>();
-        // rb = shipManager.Rb;
-        // trans = shipManager.Trans;
-
-        //DisableThrusters(positiveThrustersX);
-
         stateManagerX = new StateManager(true, shipManager.ShipProfile.TangentAcclerationForce, shipManager.ShipProfile.TangentAcclerationForce, shipManager.Rb);
         stateManagerY = new StateManager(true, shipManager.ShipProfile.TangentAcclerationForce, shipManager.ShipProfile.TangentAcclerationForce, shipManager.Rb);
         stateManagerZ = new StateManager(false, shipManager.ShipProfile.ForeAcclerationForce, shipManager.ShipProfile.AftAccelerationForce, shipManager.Rb);
@@ -58,6 +42,25 @@ public class ShipMovmentSystem : MonoBehaviour
         rotationStateManagerX = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb);
         rotationStateManagerY = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb);
         rotationStateManagerZ = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb);
+    }
+
+    private void initThrusters()
+    {
+        moveThrusters = new Dictionary<string, List<ParticleSystem>>();
+        moveThrusters.Add("upThrusters", new List<ParticleSystem>());
+        moveThrusters.Add("downThrusters", new List<ParticleSystem>());
+        moveThrusters.Add("leftThrusters", new List<ParticleSystem>());
+        moveThrusters.Add("rightThrusters", new List<ParticleSystem>());
+        moveThrusters.Add("foreThrusters", new List<ParticleSystem>());
+        moveThrusters.Add("aftThrusters", new List<ParticleSystem>());
+    }
+
+    void Start()
+    {
+        shipManager = GetComponent<ShipManager>();
+        initStateManagers();
+        initThrusters();
+        
     }
 
     void FixedUpdate()
@@ -71,14 +74,9 @@ public class ShipMovmentSystem : MonoBehaviour
         rotationStateManagerX.UpdateState(rotate.action.ReadValue<Vector3>().x, localT.x, shipManager.Trans.right);
         rotationStateManagerY.UpdateState(rotate.action.ReadValue<Vector3>().y, localT.y, shipManager.Trans.up);
         rotationStateManagerZ.UpdateState(rotate.action.ReadValue<Vector3>().z, localT.z, shipManager.Trans.forward);
-        Debug.Log(localT);
-        Debug.Log(rotationStateManagerX.CurrentState);
-        Debug.Log(rotationStateManagerY.CurrentState);
-        Debug.Log(rotationStateManagerZ.CurrentState);
-    }
-
-    public void getThrusters(ThrusterEffectInfo thrusterEffectInfo)
-    {
-        
+        // Debug.Log(localT);
+        // Debug.Log(rotationStateManagerX.CurrentState);
+        // Debug.Log(rotationStateManagerY.CurrentState);
+        // Debug.Log(rotationStateManagerZ.CurrentState);
     }
 }

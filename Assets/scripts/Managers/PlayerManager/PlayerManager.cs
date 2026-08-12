@@ -1,14 +1,8 @@
+using Mono.Cecil.Cil;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
+    private PlayerControlSystem playerControlSystem;
+    public PlayerControlSystem PlayerControlSystem { get { return playerControlSystem; } }
 }

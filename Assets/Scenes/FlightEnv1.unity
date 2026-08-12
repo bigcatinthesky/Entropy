@@ -29514,6 +29514,17 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &571301095 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7971936685727394565, guid: 2cd9e7c2a7b23864399dbe8de568ae6f, type: 3}
+  m_PrefabInstance: {fileID: 6321775367162121420}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12bd97a83f156664684c963518575f38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShipMovmentSystem
 --- !u!1 &590883562 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: 9580e68b322e8604abf9d3943f0bd11e, type: 3}
@@ -54203,8 +54214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1bc3b919df2f184e9ec6a2a61ecdf4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThrusterEffectInfo
-  shipMovmentSystem: {fileID: 0}
-  thrusterMoveGroup: 0
+  shipMovmentSystem: {fileID: 571301095}
+  thrusterMoveGroup: 5
 --- !u!1 &1068419351
 GameObject:
   m_ObjectHideFlags: 0
@@ -156601,6 +156612,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1569574717502672708, guid: 2cd9e7c2a7b23864399dbe8de568ae6f, type: 3}
+      propertyPath: shipProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: cecf84657ba8eb9ddaf92cea80481c51, type: 2}
+    - target: {fileID: 1569574717502672708, guid: 2cd9e7c2a7b23864399dbe8de568ae6f, type: 3}
+      propertyPath: vehicleProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: cecf84657ba8eb9ddaf92cea80481c51, type: 2}
     - target: {fileID: 3388154086405357531, guid: 2cd9e7c2a7b23864399dbe8de568ae6f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
