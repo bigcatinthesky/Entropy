@@ -10,7 +10,7 @@ using UnityEngine.InputSystem.LowLevel;
 public class ThrusterEffectInfo : MonoBehaviour
 {
     private new ParticleSystem particleSystem;
-    private ShipMovmentSystem shipMovementSystem;
+    private ShipMovementSystem shipMovementSystem;
     [SerializeField] private MoveGroup thrusterMoveGroup;
     // [SerializeField] private RotateGroup thrusterRotateGroup;
     // public RotateGroup ThrusterRotateGroup { get { return thrusterRotateGroup; } }
@@ -39,7 +39,7 @@ public class ThrusterEffectInfo : MonoBehaviour
     void Start()
     {
         particleSystem = GetComponent<ParticleSystem>();
-        transform.parent.GetComponentInParent<ShipMovmentSystem>();
+        shipMovementSystem = transform.parent.GetComponentInParent<ShipMovementSystem>();
         ToggleThruster(false);
         FindThrusterList();
     }
