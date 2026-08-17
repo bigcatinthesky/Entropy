@@ -27,3 +27,7 @@ Entropy is a hard science fiction space exploration RPG. Featuring a wide range 
 + A publicly available demo featuring a small part of the first quest is currently planned for early 2027.
 
 **Entropy is in early development and all content mentioned here or tenative dates is subject to change**
+
+Created by Parker Bowman
+
+This project is licensed under the MIT License - see the LICENSE.md file for details
