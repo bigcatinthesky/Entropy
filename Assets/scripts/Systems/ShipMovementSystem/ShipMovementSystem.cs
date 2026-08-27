@@ -1,18 +1,17 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
-using NUnit.Framework;
-using Unity.VisualScripting;
 using System;
-using Unity.Mathematics;
 
 public class ShipMovementSystem : MonoBehaviour
 {
     //Temp, to be replaced by control system
     [Header("Input Actions")]
+    [SerializeField] private bool doEmit;
     [SerializeField] private InputActionReference move;
     [SerializeField] private InputActionReference rotate;
 
+    private SMSStateManager sMSStateManager;
     private StateManager stateManagerX;
     private StateManager stateManagerY;
     private StateManager stateManagerZ;
@@ -20,8 +19,9 @@ public class ShipMovementSystem : MonoBehaviour
     private RotationStateManager rotationStateManagerY;
     private RotationStateManager rotationStateManagerZ;
     private ShipManager shipManager;
-    private Dictionary<string,List<ParticleSystem>> moveThrusters;
-    public Dictionary<string,List<ParticleSystem>> MoveThrusters { get { return moveThrusters; } }
+    private Dictionary<string,List<ThrusterEffectInfo>> moveThrusters;
+    public Dictionary<string,List<ThrusterEffectInfo>> MoveThrusters { get { return moveThrusters; } }
+
 
     private void OnEnable()
     {
@@ -36,7 +36,8 @@ public class ShipMovementSystem : MonoBehaviour
     }
     private void initStateManagers()
     {
-        
+        sMSStateManager = new SMSStateManager(this, moveThrusters);
+
         stateManagerX = new StateManager(true, shipManager.ShipProfile.TangentAcclerationForce, shipManager.ShipProfile.TangentAcclerationForce, shipManager.Rb);
         stateManagerY = new StateManager(true, shipManager.ShipProfile.TangentAcclerationForce, shipManager.ShipProfile.TangentAcclerationForce, shipManager.Rb);
         stateManagerZ = new StateManager(false, shipManager.ShipProfile.ForeAcclerationForce, shipManager.ShipProfile.AftAccelerationForce, shipManager.Rb);
@@ -48,26 +49,32 @@ public class ShipMovementSystem : MonoBehaviour
 
     private void initThrusters()
     {
-        moveThrusters = new Dictionary<string, List<ParticleSystem>>
+        moveThrusters = new Dictionary<string, List<ThrusterEffectInfo>>
         {
-            { "upThrusters", new List<ParticleSystem>() },
-            { "downThrusters", new List<ParticleSystem>() },
-            { "leftThrusters", new List<ParticleSystem>() },
-            { "rightThrusters", new List<ParticleSystem>() },
-            { "foreThrusters", new List<ParticleSystem>() },
-            { "aftThrusters", new List<ParticleSystem>() }
+            { "upThrusters", new List<ThrusterEffectInfo>() },
+            { "downThrusters", new List<ThrusterEffectInfo>() },
+            { "leftThrusters", new List<ThrusterEffectInfo>() },
+            { "rightThrusters", new List<ThrusterEffectInfo>() },
+            { "foreThrusters", new List<ThrusterEffectInfo>() },
+            { "aftThrusters", new List<ThrusterEffectInfo>() }
         };
     }
 
     void Start()
     {
         shipManager = GetComponent<ShipManager>();
-        initStateManagers();
         initThrusters();
+        initStateManagers();
         
     }
 
     void FixedUpdate()
+    {
+        sMSStateManager.UpdateState(doEmit);
+        Debug.Log(sMSStateManager.CurrentState);
+    }
+
+    public void DoFixedUpdate()
     {
         Vector3 localV = transform.InverseTransformDirection(shipManager.Rb.linearVelocity);
         stateManagerX.UpdateState(move.action.ReadValue<Vector3>().x, (float)Math.Round(localV.x,2), shipManager.Trans.right);

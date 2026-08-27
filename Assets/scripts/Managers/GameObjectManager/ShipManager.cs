@@ -7,7 +7,7 @@ public class ShipManager : VehicleTypeBase
 {
     [SerializeField] private ShipProfile shipProfile;
     public ShipProfile ShipProfile { get { return shipProfile; } }
-    private ShipMovementSystem shipMovmentSystem;
+    private ShipMovementSystem shipMovementSystem;
     public ShipMovementSystem ShipMovmentSystem { get { return ShipMovmentSystem; } }
     private ShipLandingSystem shipLandingSystem;
     public ShipLandingSystem ShipLandingSystem { get { return ShipLandingSystem; } }

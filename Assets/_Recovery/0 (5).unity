@@ -157027,10 +157027,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7971936685727394565, guid: 2cd9e7c2a7b23864399dbe8de568ae6f, type: 3}
-      propertyPath: doEmit
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7971936685727394565, guid: 2cd9e7c2a7b23864399dbe8de568ae6f, type: 3}
       propertyPath: torqueForce
       value: 5
       objectReference: {fileID: 0}

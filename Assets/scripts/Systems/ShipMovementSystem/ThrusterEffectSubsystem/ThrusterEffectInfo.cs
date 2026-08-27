@@ -1,11 +1,6 @@
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using NUnit.Framework;
 using Unity.VisualScripting;
-using UnityEditor.UI;
 using UnityEngine;
-using UnityEngine.Animations;
-using UnityEngine.InputSystem.LowLevel;
 
 public class ThrusterEffectInfo : MonoBehaviour
 {
@@ -39,26 +34,42 @@ public class ThrusterEffectInfo : MonoBehaviour
     void Start()
     {
         particleSystem = GetComponent<ParticleSystem>();
-        shipMovementSystem = transform.parent.GetComponentInParent<ShipMovementSystem>();
+        shipMovementSystem = GetShipMovementSystem();
+
         ToggleThruster(false);
         FindThrusterList();
+    }
+    
+    private ShipMovementSystem GetShipMovementSystem() {
+        ShipMovementSystem _shipMovementSystem = GetComponent<ShipMovementSystem>();
+            if (_shipMovementSystem == null) {
+                return GetShipMovementSystem(GetComponentInParent<ShipMovementSystem>());
+            }
+            else { return _shipMovementSystem; }
+
+    }
+    private ShipMovementSystem GetShipMovementSystem(ShipMovementSystem _shipMovementSystem) {
+            if (_shipMovementSystem == null) {
+                return GetShipMovementSystem(GetComponentInParent<ShipMovementSystem>());
+            }
+            else { return _shipMovementSystem; }
     }
 
     // Finds what list in the shipMovement.MoveThrusters dictionary a thruster belongs to by calling CheckThruster on each KeyValuePair
     private void FindThrusterList()
     {
-        foreach (KeyValuePair<string, List<ParticleSystem>> list in shipMovementSystem.MoveThrusters)
+        foreach (KeyValuePair<string, List<ThrusterEffectInfo>> list in shipMovementSystem.MoveThrusters)
         {
             bool found = CheckThruster(list);
             if (found) { return; }
         }
     }
     // Called on start, checks the thrusters MoveGroup against the KeyValuePair sting, adds to list and returns true if equal, else false
-    private bool CheckThruster(KeyValuePair<string, List<ParticleSystem>> thrusterList)
+    private bool CheckThruster(KeyValuePair<string, List<ThrusterEffectInfo>> thrusterList)
     {
         if (thrusterList.Key == thrusterMoveGroup.ToString())
         {
-            thrusterList.Value.Add(particleSystem);
+            thrusterList.Value.Add(this);
             // Debug.Log("added to list");
             return true;
         }
