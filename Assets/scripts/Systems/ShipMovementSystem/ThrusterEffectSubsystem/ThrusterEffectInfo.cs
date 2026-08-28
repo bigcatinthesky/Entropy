@@ -10,7 +10,7 @@ public class ThrusterEffectInfo : MonoBehaviour
     // [SerializeField] private RotateGroup thrusterRotateGroup;
     // public RotateGroup ThrusterRotateGroup { get { return thrusterRotateGroup; } }
 
-    public enum MoveGroup
+    [SerializeField] private enum MoveGroup
     {
         aftThrusters,
         foreThrusters,
@@ -37,6 +37,7 @@ public class ThrusterEffectInfo : MonoBehaviour
         shipMovementSystem = GetShipMovementSystem();
 
         ToggleThruster(false);
+        SetThrusterStartSpeed(0);
         FindThrusterList();
     }
     

@@ -21,12 +21,15 @@ public abstract class SMSBaseState
             }
         }
     }
-    protected void SwitchState(SMSBaseState newState)
+    protected void EnterState(bool toggleMoveThrusters)
+    {
+        ToggleMoveThrusters(toggleMoveThrusters);
+    }
+    protected void SwitchState(SMSBaseState newState, bool toggleMoveThrusters)
     {
         sMSStateManager.CurrentState = newState;
-        newState.EnterState();
+        newState.EnterState(toggleMoveThrusters);
     }
     public abstract void UpdateState(bool doMove);
-    public abstract void EnterState();
 
 }

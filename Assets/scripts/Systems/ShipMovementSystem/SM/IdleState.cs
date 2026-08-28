@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class IdleState : BaseState
 {
@@ -10,13 +11,13 @@ public class IdleState : BaseState
         
         if (moveActionValue > 0 || (dampen == true && localV < 0))
         {
-            BaseState positiveAccelerationState = stateManager.PositiveAccelerationState;
-            SwitchState(positiveAccelerationState);
+            SwitchState(stateManager.PositiveAccelerationState);
         }
         else if (moveActionValue < 0 || (dampen == true && localV > 0)) 
         {
-            BaseState negativeAccelerationState = stateManager.NegativeAccelerationState;
-            SwitchState(negativeAccelerationState);
+            SwitchState(stateManager.NegativeAccelerationState);
         }
     }
+    protected override void EnterState() {}
+    protected override void ExitState() {}
 }

@@ -11,10 +11,6 @@ public class OnState : SMSBaseState
     public override void UpdateState(bool doMove)
     {
         if (doMove) { shipMovementSystem.DoFixedUpdate(); }
-        else { SwitchState(sMSStateManager.OffState); }
-    }
-    public override void EnterState()
-    {
-        ToggleMoveThrusters(true);
+        else { SwitchState(sMSStateManager.OffState, false); }
     }
 }

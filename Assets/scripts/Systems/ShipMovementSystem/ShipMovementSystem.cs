@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public class ShipMovementSystem : MonoBehaviour
 {
@@ -38,9 +39,9 @@ public class ShipMovementSystem : MonoBehaviour
     {
         sMSStateManager = new SMSStateManager(this, moveThrusters);
 
-        stateManagerX = new StateManager(true, shipManager.ShipProfile.TangentAcclerationForce, shipManager.ShipProfile.TangentAcclerationForce, shipManager.Rb);
-        stateManagerY = new StateManager(true, shipManager.ShipProfile.TangentAcclerationForce, shipManager.ShipProfile.TangentAcclerationForce, shipManager.Rb);
-        stateManagerZ = new StateManager(false, shipManager.ShipProfile.ForeAcclerationForce, shipManager.ShipProfile.AftAccelerationForce, shipManager.Rb);
+        stateManagerX = new StateManager(false, shipManager.ShipProfile.TangentAcclerationForce, shipManager.ShipProfile.TangentAcclerationForce, shipManager.Rb, moveThrusters["rightThrusters"], moveThrusters["leftThrusters"]);
+        stateManagerY = new StateManager(false, shipManager.ShipProfile.TangentAcclerationForce, shipManager.ShipProfile.TangentAcclerationForce, shipManager.Rb, moveThrusters["downThrusters"], moveThrusters["upThrusters"]);
+        stateManagerZ = new StateManager(false, shipManager.ShipProfile.ForeAcclerationForce, shipManager.ShipProfile.AftAccelerationForce, shipManager.Rb, moveThrusters["foreThrusters"], moveThrusters["aftThrusters"]);
 
         rotationStateManagerX = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb);
         rotationStateManagerY = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb);
@@ -71,7 +72,6 @@ public class ShipMovementSystem : MonoBehaviour
     void FixedUpdate()
     {
         sMSStateManager.UpdateState(doEmit);
-        Debug.Log(sMSStateManager.CurrentState);
     }
 
     public void DoFixedUpdate()
@@ -85,9 +85,5 @@ public class ShipMovementSystem : MonoBehaviour
         rotationStateManagerX.UpdateState(rotate.action.ReadValue<Vector3>().x, (float)Math.Round(localT.x,2), shipManager.Trans.right);
         rotationStateManagerY.UpdateState(rotate.action.ReadValue<Vector3>().y, (float)Math.Round(localT.y,2), shipManager.Trans.up);
         rotationStateManagerZ.UpdateState(rotate.action.ReadValue<Vector3>().z, (float)Math.Round(localT.z,2), shipManager.Trans.forward);
-        // Debug.Log(localT);
-        // Debug.Log(rotationStateManagerX.CurrentState);
-        // Debug.Log(rotationStateManagerY.CurrentState);
-        // Debug.Log(rotationStateManagerZ.CurrentState);
     }
 }

@@ -24719,7 +24719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1bc3b919df2f184e9ec6a2a61ecdf4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThrusterEffectInfo
-  thrusterMoveGroup: 2
+  thrusterMoveGroup: 3
 --- !u!1 &560487896
 GameObject:
   m_ObjectHideFlags: 0
