@@ -39,8 +39,8 @@ public class ShipMovementSystem : MonoBehaviour
     {
         sMSStateManager = new SMSStateManager(this, moveThrusters);
 
-        stateManagerX = new StateManager(false, shipManager.ShipProfile.TangentAcclerationForce, shipManager.ShipProfile.TangentAcclerationForce, shipManager.Rb, moveThrusters["rightThrusters"], moveThrusters["leftThrusters"]);
-        stateManagerY = new StateManager(false, shipManager.ShipProfile.TangentAcclerationForce, shipManager.ShipProfile.TangentAcclerationForce, shipManager.Rb, moveThrusters["downThrusters"], moveThrusters["upThrusters"]);
+        stateManagerX = new StateManager(true, shipManager.ShipProfile.TangentAcclerationForce, shipManager.ShipProfile.TangentAcclerationForce, shipManager.Rb, moveThrusters["rightThrusters"], moveThrusters["leftThrusters"]);
+        stateManagerY = new StateManager(true, shipManager.ShipProfile.TangentAcclerationForce, shipManager.ShipProfile.TangentAcclerationForce, shipManager.Rb, moveThrusters["downThrusters"], moveThrusters["upThrusters"]);
         stateManagerZ = new StateManager(false, shipManager.ShipProfile.ForeAcclerationForce, shipManager.ShipProfile.AftAccelerationForce, shipManager.Rb, moveThrusters["foreThrusters"], moveThrusters["aftThrusters"]);
 
         rotationStateManagerX = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb);

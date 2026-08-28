@@ -18,6 +18,7 @@ public abstract class BaseState
     protected abstract void ExitState();
     protected void SwitchState(BaseState newState)
     {
+        Debug.Log("switch from "+stateManager.CurrentState+" to "+newState);
         stateManager.CurrentState.ExitState();
         stateManager.CurrentState = newState;
         newState.EnterState();
@@ -30,10 +31,13 @@ public abstract class BaseState
             for(int i = 0; i < moveThrusters.Count; i++)
             {
                 moveThrusters[i].SetThrusterStartSpeed(thrusterLen);
-                Debug.Log("speed set "+thrusterLen);
             }
         }
         else { throw new System.Exception("ERROR\nvalue is "+thrusterLen.ToString()+"\nvalue must be between 1 and 5"); }
+    }
+    protected void Accelerate(float moveActionValue, Vector3 trans, Rigidbody rb, float accelerationForce)
+    {
+        rb.AddForce(trans * Time.fixedDeltaTime * accelerationForce * moveActionValue*-1, ForceMode.Force);
     }
     public void InitStartState()
     {

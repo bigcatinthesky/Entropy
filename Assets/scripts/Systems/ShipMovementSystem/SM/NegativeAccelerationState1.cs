@@ -18,16 +18,14 @@ public class NegativeAccelerationState : BaseState
 
         if (moveActionValue != 0)
         {
-            Accelerate(moveActionValue, trans);
+            Accelerate(moveActionValue, trans, rb, accelerationForce);
         }
         else if(dampen == true && localV != 0)
         {
-            
+            if (localV > 0) { SwitchState(stateManager.PositiveAccelerationState); }
+            else {  Accelerate(-1, trans, rb, accelerationForce); }
         }
-        else if(dampen == false || localV == 0)
-        {
-            SwitchState(stateManager.IdleState);
-        }
+        else if(dampen == false || localV == 0) { SwitchState(stateManager.IdleState); }
     }
     protected override void EnterState()
     {
@@ -37,10 +35,5 @@ public class NegativeAccelerationState : BaseState
     {
         SetThrusterLength(0, moveThrusters);
     }
-    private void Accelerate(float moveActionValue, Vector3 trans)
-    {
-        rb.AddForce(trans * Time.fixedDeltaTime * accelerationForce * moveActionValue*-1, ForceMode.Acceleration);
-    }
-
 
 }

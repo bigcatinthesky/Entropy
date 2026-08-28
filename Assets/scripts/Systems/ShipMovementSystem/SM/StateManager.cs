@@ -15,8 +15,6 @@ public class StateManager
 
     public StateManager(bool dampen, float positiveAccelerationForce, float negativeAccelerationForce, Rigidbody rb, List<ThrusterEffectInfo> positiveThrusters, List<ThrusterEffectInfo> negativeThrusters)
     {
-        Debug.Log(positiveThrusters.Count);
-        Debug.Log(negativeThrusters.Count);
         idleState = new IdleState(dampen, this);
         positveAccelerationState = new PositiveAccelerationState(dampen, this, positiveAccelerationForce, rb, positiveThrusters);
         negativeAccelerationState = new NegativeAccelerationState(dampen, this, negativeAccelerationForce, rb, negativeThrusters);
