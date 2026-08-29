@@ -7,6 +7,9 @@ public class ThrusterEffectInfo : MonoBehaviour
     private new ParticleSystem particleSystem;
     private ShipMovementSystem shipMovementSystem;
     [SerializeField] private MoveGroup thrusterMoveGroup;
+    [SerializeField] private PitchRotateGroup pitchRotateGroup;
+    [SerializeField] private YawRotateGroup yawRotateGroup;
+    [SerializeField] private RollRotateGroup rollRotateGroup;
     // [SerializeField] private RotateGroup thrusterRotateGroup;
     // public RotateGroup ThrusterRotateGroup { get { return thrusterRotateGroup; } }
 
@@ -20,25 +23,36 @@ public class ThrusterEffectInfo : MonoBehaviour
         downThrusters
     }
 
-    // public enum RotateGroup
-    // {
-    //     RotateXPositive,
-    //     RotateXNegative,
-    //     RotateYPositive,
-    //     RotateYNegative,
-    //     RotateZPositive,
-    //     RotateZNegative,
-    //     None
-    // }
-
+    [SerializeField] private enum PitchRotateGroup
+    {
+        pitchPositiveThrusters,
+        pitchNegativeThrusters,
+        none
+    }
+    [SerializeField] private enum YawRotateGroup
+    {
+        yawPositiveThrusters,
+        yawNegativeThrusters,
+        none
+    }
+    [SerializeField] private enum RollRotateGroup
+    {
+        rollPositiveThrusters,
+        rollNegativeThrusters,
+        none
+    }
     void Start()
     {
         particleSystem = GetComponent<ParticleSystem>();
         shipMovementSystem = GetShipMovementSystem();
+        // Debug.Log(particleSystem);
+        // Debug.Log(shipMovementSystem);
 
-        ToggleThruster(false);
         SetThrusterStartSpeed(0);
-        FindThrusterList();
+        FindThrusterList(shipMovementSystem.MoveThrusters, thrusterMoveGroup.ToString());
+        FindThrusterList(shipMovementSystem.RotateThrusters, pitchRotateGroup.ToString());
+        FindThrusterList(shipMovementSystem.RotateThrusters, yawRotateGroup.ToString());
+        FindThrusterList(shipMovementSystem.RotateThrusters, rollRotateGroup.ToString());
     }
     
     private ShipMovementSystem GetShipMovementSystem() {
@@ -57,18 +71,19 @@ public class ThrusterEffectInfo : MonoBehaviour
     }
 
     // Finds what list in the shipMovement.MoveThrusters dictionary a thruster belongs to by calling CheckThruster on each KeyValuePair
-    private void FindThrusterList()
+    private void FindThrusterList(Dictionary<string,List<ThrusterEffectInfo>> thrusterEffectInfo, string thrusterGroup)
     {
-        foreach (KeyValuePair<string, List<ThrusterEffectInfo>> list in shipMovementSystem.MoveThrusters)
+        // Debug.Log(thrusterEffectInfo);
+        foreach (KeyValuePair<string, List<ThrusterEffectInfo>> list in thrusterEffectInfo)
         {
-            bool found = CheckThruster(list);
+            bool found = CheckThruster(list, thrusterGroup);
             if (found) { return; }
         }
     }
     // Called on start, checks the thrusters MoveGroup against the KeyValuePair sting, adds to list and returns true if equal, else false
-    private bool CheckThruster(KeyValuePair<string, List<ThrusterEffectInfo>> thrusterList)
+    private bool CheckThruster(KeyValuePair<string, List<ThrusterEffectInfo>> thrusterList, string thrusterGroup)
     {
-        if (thrusterList.Key == thrusterMoveGroup.ToString())
+        if (thrusterList.Key == thrusterGroup)
         {
             thrusterList.Value.Add(this);
             // Debug.Log("added to list");

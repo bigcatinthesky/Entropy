@@ -6,7 +6,6 @@ public class NegativeAccelerationState : BaseState
     private float accelerationForce;
     private Rigidbody rb;
     private List<ThrusterEffectInfo> moveThrusters;
-    private bool positiveState;
     public NegativeAccelerationState(bool dampen, StateManager stateManager, float accelerationForce, Rigidbody rb, List<ThrusterEffectInfo> moveThrusters) : base(stateManager, dampen)
     {
         this.accelerationForce = accelerationForce;
@@ -15,15 +14,15 @@ public class NegativeAccelerationState : BaseState
     }
     public override void UpdateState(float moveActionValue, float localV, Vector3 trans)
     {
-
         if (moveActionValue != 0)
         {
-            Accelerate(moveActionValue, trans, rb, accelerationForce);
+            if (moveActionValue < 0) { Accelerate(moveActionValue, trans, rb, accelerationForce); }
+            else { SwitchState(stateManager.PositiveAccelerationState); }
         }
         else if(dampen == true && localV != 0)
         {
             if (localV > 0) { SwitchState(stateManager.PositiveAccelerationState); }
-            else {  Accelerate(-1, trans, rb, accelerationForce); }
+            else { Accelerate(-1, trans, rb, accelerationForce); }
         }
         else if(dampen == false || localV == 0) { SwitchState(stateManager.IdleState); }
     }

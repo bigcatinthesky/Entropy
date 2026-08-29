@@ -21,6 +21,8 @@ public class ShipMovementSystem : MonoBehaviour
     private RotationStateManager rotationStateManagerZ;
     private ShipManager shipManager;
     private Dictionary<string,List<ThrusterEffectInfo>> moveThrusters;
+    private Dictionary<string,List<ThrusterEffectInfo>> rotateThrusters;
+    public Dictionary<string,List<ThrusterEffectInfo>> RotateThrusters { get { return rotateThrusters; } }
     public Dictionary<string,List<ThrusterEffectInfo>> MoveThrusters { get { return moveThrusters; } }
 
 
@@ -43,9 +45,9 @@ public class ShipMovementSystem : MonoBehaviour
         stateManagerY = new StateManager(true, shipManager.ShipProfile.TangentAcclerationForce, shipManager.ShipProfile.TangentAcclerationForce, shipManager.Rb, moveThrusters["downThrusters"], moveThrusters["upThrusters"]);
         stateManagerZ = new StateManager(false, shipManager.ShipProfile.ForeAcclerationForce, shipManager.ShipProfile.AftAccelerationForce, shipManager.Rb, moveThrusters["foreThrusters"], moveThrusters["aftThrusters"]);
 
-        rotationStateManagerX = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb);
-        rotationStateManagerY = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb);
-        rotationStateManagerZ = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb);
+        rotationStateManagerX = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb, rotateThrusters["pitchPositiveThrusters"],rotateThrusters["pitchNegativeThrusters"]);
+        rotationStateManagerY = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb, rotateThrusters["yawPositiveThrusters"],rotateThrusters["yawNegativeThrusters"]);
+        rotationStateManagerZ = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb, rotateThrusters["rollNegativeThrusters"],rotateThrusters["rollPositiveThrusters"]);
     }
 
     private void initThrusters()
@@ -58,6 +60,15 @@ public class ShipMovementSystem : MonoBehaviour
             { "rightThrusters", new List<ThrusterEffectInfo>() },
             { "foreThrusters", new List<ThrusterEffectInfo>() },
             { "aftThrusters", new List<ThrusterEffectInfo>() }
+        };
+        rotateThrusters = new Dictionary<string,List<ThrusterEffectInfo>>
+        {
+            { "pitchPositiveThrusters", new List<ThrusterEffectInfo>() },
+            { "pitchNegativeThrusters", new List<ThrusterEffectInfo>() },
+            { "yawPositiveThrusters", new List<ThrusterEffectInfo>() },
+            { "yawNegativeThrusters", new List<ThrusterEffectInfo>() },
+            { "rollPositiveThrusters", new List<ThrusterEffectInfo>() },
+            { "rollNegativeThrusters", new List<ThrusterEffectInfo>() }
         };
     }
 
@@ -77,9 +88,9 @@ public class ShipMovementSystem : MonoBehaviour
     public void DoFixedUpdate()
     {
         Vector3 localV = transform.InverseTransformDirection(shipManager.Rb.linearVelocity);
-        stateManagerX.UpdateState(move.action.ReadValue<Vector3>().x, (float)Math.Round(localV.x,2), shipManager.Trans.right);
-        stateManagerY.UpdateState(move.action.ReadValue<Vector3>().y*-1, (float)Math.Round(localV.y,2), shipManager.Trans.up);
-        stateManagerZ.UpdateState(move.action.ReadValue<Vector3>().z, (float)Math.Round(localV.z,2), shipManager.Trans.forward);
+        stateManagerX.UpdateState(move.action.ReadValue<Vector3>().x, (float)Math.Round(localV.x,1), shipManager.Trans.right);
+        stateManagerY.UpdateState(move.action.ReadValue<Vector3>().y*-1, (float)Math.Round(localV.y,1), shipManager.Trans.up);
+        stateManagerZ.UpdateState(move.action.ReadValue<Vector3>().z, (float)Math.Round(localV.z,1), shipManager.Trans.forward);
 
         Vector3 localT = transform.InverseTransformDirection(shipManager.Rb.angularVelocity);
         rotationStateManagerX.UpdateState(rotate.action.ReadValue<Vector3>().x, (float)Math.Round(localT.x,2), shipManager.Trans.right);

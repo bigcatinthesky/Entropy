@@ -14,10 +14,10 @@ public class PositiveAccelerationState : BaseState
     }
     public override void UpdateState(float moveActionValue, float localV, Vector3 trans)
     {
-
         if (moveActionValue != 0)
         {
-            Accelerate(moveActionValue, trans, rb, accelerationForce);
+            if (moveActionValue > 0) { Accelerate(moveActionValue, trans, rb, accelerationForce); }
+            else { SwitchState(stateManager.NegativeAccelerationState); }
         }
         else if(dampen == true && localV != 0)
         {
@@ -28,7 +28,7 @@ public class PositiveAccelerationState : BaseState
     }
     protected override void EnterState()
     {
-        SetThrusterLength(4, moveThrusters);
+        SetThrusterLength(5, moveThrusters);
     }
     protected override void ExitState()
     {

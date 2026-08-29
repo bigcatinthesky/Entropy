@@ -18,7 +18,7 @@ public abstract class BaseState
     protected abstract void ExitState();
     protected void SwitchState(BaseState newState)
     {
-        Debug.Log("switch from "+stateManager.CurrentState+" to "+newState);
+        // Debug.Log("switch from "+stateManager.CurrentState+" to "+newState);
         stateManager.CurrentState.ExitState();
         stateManager.CurrentState = newState;
         newState.EnterState();

@@ -1,23 +1,24 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class RotationStateManager
 {
     private RotationBaseState currentState;
     private IdleRotationState idleRotationState;
-    private ActiveRotationState positveRotationState;
-    private ActiveRotationState negativeRotationState;
+    private PositiveTorqueState positiveTorqueState;
+    private NegativeTorqueState negativeTorqueState;
 
     public RotationBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public IdleRotationState IdleRotationState { get { return idleRotationState; } }
-    public ActiveRotationState PositveRotationState { get { return positveRotationState; } }
-    public ActiveRotationState NegativeRotationState { get { return negativeRotationState; } }
+    public PositiveTorqueState PositiveTorqueState { get { return positiveTorqueState; } }
+    public NegativeTorqueState NegativeTorqueState { get { return negativeTorqueState; } }
 
-    public RotationStateManager(float rotationTourque, Rigidbody rb)
+    public RotationStateManager(float rotationTourque, Rigidbody rb, List<ThrusterEffectInfo> positiveRotateThrusters, List<ThrusterEffectInfo> negativeRotateThrusters)
     {
         idleRotationState = new IdleRotationState(this);
-        positveRotationState = new ActiveRotationState(this, rotationTourque, rb);
-        negativeRotationState = new ActiveRotationState(this, rotationTourque, rb);
-        currentState = idleRotationState;
+        positiveTorqueState = new PositiveTorqueState(this, rotationTourque, rb, positiveRotateThrusters);
+        negativeTorqueState = new NegativeTorqueState(this, rotationTourque, rb, negativeRotateThrusters);
+        idleRotationState.InitStartState();
     }
     public void UpdateState(float rotationActionValue, float localT, Vector3 trans)
     {
