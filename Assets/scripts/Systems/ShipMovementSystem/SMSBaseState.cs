@@ -17,7 +17,7 @@ public abstract class SMSBaseState
             List <ThrusterEffectInfo> list = pair.Value;
             for(int i = 0; i < list.Count; i++)
             {
-                list[i].ToggleThruster(doEmit);
+                list[i].ThrusterEffectStateManager.CurrentState.ToggleThruster(doEmit);
             }
         }
     }

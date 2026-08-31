@@ -26,7 +26,7 @@ public abstract class RotationBaseState
         {
             for(int i = 0; i < moveThrusters.Count; i++)
             {
-                moveThrusters[i].SetThrusterStartSpeed(thrusterLen);
+                moveThrusters[i].ThrusterEffectStateManager.ThrusterEffectActiveState.SetThrusterStartSpeed(thrusterLen);
             }
         }
         else { throw new System.Exception("ERROR\nvalue is "+thrusterLen.ToString()+"\nvalue must be between 1 and 5"); }

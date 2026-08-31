@@ -24727,7 +24727,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ThrusterEffectInfo
   thrusterMoveGroup: 3
   pitchRotateGroup: 2
-  yawRotateGroup: 0
+  yawRotateGroup: 1
   rollRotateGroup: 2
 --- !u!1 &560487896
 GameObject:
@@ -108034,6 +108034,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PersonellManager
   unCrewed: 0
+--- !u!65 &1433090481
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433090472}
+  m_Material: {fileID: 13400000, guid: 05d011b2e1b4b2844a405bd18f64c801, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 10, y: 5, z: 29.762459}
+  m_Center: {x: 0, y: 0, z: -12.119152}
 --- !u!4 &1458485304 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3019931571348174582, guid: 2cd9e7c2a7b23864399dbe8de568ae6f, type: 3}
@@ -157243,6 +157264,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4524893567896420965, guid: 2cd9e7c2a7b23864399dbe8de568ae6f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1433090475}
+    - targetCorrespondingSourceObject: {fileID: 4524893567896420965, guid: 2cd9e7c2a7b23864399dbe8de568ae6f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1433090481}
   m_SourcePrefab: {fileID: 100100000, guid: 2cd9e7c2a7b23864399dbe8de568ae6f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

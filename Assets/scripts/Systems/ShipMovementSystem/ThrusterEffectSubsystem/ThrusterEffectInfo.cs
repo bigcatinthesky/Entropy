@@ -6,13 +6,14 @@ public class ThrusterEffectInfo : MonoBehaviour
 {
     private new ParticleSystem particleSystem;
     private ShipMovementSystem shipMovementSystem;
+    private ThrusterEffectStateManager thrusterEffectStateManager;
     [SerializeField] private MoveGroup thrusterMoveGroup;
     [SerializeField] private PitchRotateGroup pitchRotateGroup;
     [SerializeField] private YawRotateGroup yawRotateGroup;
     [SerializeField] private RollRotateGroup rollRotateGroup;
-    // [SerializeField] private RotateGroup thrusterRotateGroup;
-    // public RotateGroup ThrusterRotateGroup { get { return thrusterRotateGroup; } }
 
+    public ParticleSystem ParticleSystem { get { return particleSystem; } }
+    public ThrusterEffectStateManager ThrusterEffectStateManager { get { return thrusterEffectStateManager; } }
     [SerializeField] private enum MoveGroup
     {
         aftThrusters,
@@ -43,16 +44,15 @@ public class ThrusterEffectInfo : MonoBehaviour
     }
     void Start()
     {
+        thrusterEffectStateManager = new ThrusterEffectStateManager(this);
         particleSystem = GetComponent<ParticleSystem>();
         shipMovementSystem = GetShipMovementSystem();
-        // Debug.Log(particleSystem);
-        // Debug.Log(shipMovementSystem);
 
-        SetThrusterStartSpeed(0);
         FindThrusterList(shipMovementSystem.MoveThrusters, thrusterMoveGroup.ToString());
         FindThrusterList(shipMovementSystem.RotateThrusters, pitchRotateGroup.ToString());
         FindThrusterList(shipMovementSystem.RotateThrusters, yawRotateGroup.ToString());
         FindThrusterList(shipMovementSystem.RotateThrusters, rollRotateGroup.ToString());
+        thrusterEffectStateManager.ThrusterEffectActiveState.SetThrusterStartSpeed(0);
     }
     
     private ShipMovementSystem GetShipMovementSystem() {
@@ -92,20 +92,4 @@ public class ThrusterEffectInfo : MonoBehaviour
         // Debug.Log("not added to list");
         return false;
     }
-
-    // Toggle the particle system on or off
-    public void ToggleThruster(bool doThrust)
-    {
-        var doEmit = particleSystem.emission;
-        if (doThrust) { doEmit.enabled = true; }
-        else { doEmit.enabled = false; }
-    }
-
-    // Set thruster start speed int between 1 and 5, default = 5
-    public void SetThrusterStartSpeed(int startSpeed)
-    {
-        var main = particleSystem.main;
-        main.startSpeed = startSpeed;
-    }
-
 }
