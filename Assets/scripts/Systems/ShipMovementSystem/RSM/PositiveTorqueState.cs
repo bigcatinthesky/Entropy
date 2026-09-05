@@ -28,7 +28,7 @@ public class PositiveTorqueState : RotationBaseState
     }
     public override void EnterState()
     {
-        SetThrusterLength(5, rotateThrusters);
+        SetThrusterLength(4, rotateThrusters);
     }
     public override void ExitState()
     {
