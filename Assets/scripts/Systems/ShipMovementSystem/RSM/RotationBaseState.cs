@@ -20,17 +20,17 @@ public abstract class RotationBaseState
         rotationStateManager.CurrentState = newState;
         newState.EnterState();
     }
-    protected void SetThrusterLength(int thrusterLen, List<ThrusterEffectInfo> moveThrusters)
-    {
-        if(thrusterLen >= 0 && thrusterLen <= 5)
-        {
-            for(int i = 0; i < moveThrusters.Count; i++)
-            {
-                moveThrusters[i].ThrusterEffectStateManager.ThrusterEffectActiveState.SetThrusterStartSpeed(thrusterLen);
-            }
-        }
-        else { throw new System.Exception("ERROR\nvalue is "+thrusterLen.ToString()+"\nvalue must be between 1 and 5"); }
-    }
+    // protected void SetThrusterLength(int thrusterLen, List<ThrusterEffectInfo> moveThrusters)
+    // {
+    //     if(thrusterLen >= 0 && thrusterLen <= 5)
+    //     {
+    //         for(int i = 0; i < moveThrusters.Count; i++)
+    //         {
+    //             moveThrusters[i].ThrusterEffectStateManager.ThrusterEffectOnState.SetThrusterStartSpeed(thrusterLen);
+    //         }
+    //     }
+    //     else { throw new System.Exception("ERROR\nvalue is "+thrusterLen.ToString()+"\nvalue must be between 1 and 5"); }
+    // }
     protected void ApplyTorque(float rotationActionValue, Vector3 trans, Rigidbody rb, float rotationTorque)
     {
         rb.AddTorque(trans * Time.fixedDeltaTime * rotationTorque * rotationActionValue*-1, ForceMode.Acceleration);

@@ -1,7 +1,8 @@
 using UnityEngine;
 
-public class ThrusterEffectInactiveState : ThrusterEffectBaseState
+public class ThrusterEffectOffState : ThrusterEffectBaseState
 {
-    public ThrusterEffectInactiveState(ThrusterEffectStateManager thrusterEffectStateManager, ThrusterEffectInfo thrusterEffectInfo) : base(thrusterEffectStateManager, thrusterEffectInfo) {}
+    public ThrusterEffectOffState(ThrusterEffectStateManager thrusterEffectStateManager, ThrusterEffectInfo thrusterEffectInfo) : base(thrusterEffectStateManager, thrusterEffectInfo) {}
 
+    public override void EnterState() { thrusterOn = false; }
 }

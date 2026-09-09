@@ -3,16 +3,16 @@ using UnityEngine;
 public class ThrusterEffectStateManager
 {
     private ThrusterEffectBaseState currentState;
-    private ThrusterEffectInactiveState thrusterEffectInactiveState;
-    private ThrusterEffectActiveState thrusterEffectActiveState;
-    public ThrusterEffectBaseState CurrentState { get { return currentState; } set { currentState = value; } }
-    public ThrusterEffectInactiveState ThrusterEffectInactiveState { get { return thrusterEffectInactiveState; } }
-    public ThrusterEffectActiveState ThrusterEffectActiveState { get { return thrusterEffectActiveState; } }
+    private ThrusterEffectOffState thrusterEffectOffState;
+    private ThrusterEffectOnState thrusterEffectOnState;
+    public ThrusterEffectBaseState CurrentState { get { return currentState; } set { currentState = value; currentState.EnterState(); } }
+    public ThrusterEffectOffState ThrusterEffectOffState { get { return thrusterEffectOffState; } }
+    public ThrusterEffectOnState ThrusterEffectOnState { get { return thrusterEffectOnState; } }
 
     public ThrusterEffectStateManager(ThrusterEffectInfo thrusterEffectInfo)
     {
-        thrusterEffectInactiveState = new ThrusterEffectInactiveState(this, thrusterEffectInfo);
-        thrusterEffectActiveState = new ThrusterEffectActiveState(this, thrusterEffectInfo);
-        thrusterEffectActiveState.InitNewState();
+        thrusterEffectOffState = new ThrusterEffectOffState(this, thrusterEffectInfo);
+        thrusterEffectOnState = new ThrusterEffectOnState(this, thrusterEffectInfo);
+        currentState = ThrusterEffectOnState;
     }
 }

@@ -44,7 +44,6 @@ public class ThrusterEffectInfo : MonoBehaviour
     }
     void Start()
     {
-        thrusterEffectStateManager = new ThrusterEffectStateManager(this);
         particleSystem = GetComponent<ParticleSystem>();
         shipMovementSystem = GetShipMovementSystem();
 
@@ -52,7 +51,8 @@ public class ThrusterEffectInfo : MonoBehaviour
         FindThrusterList(shipMovementSystem.RotateThrusters, pitchRotateGroup.ToString());
         FindThrusterList(shipMovementSystem.RotateThrusters, yawRotateGroup.ToString());
         FindThrusterList(shipMovementSystem.RotateThrusters, rollRotateGroup.ToString());
-        thrusterEffectStateManager.ThrusterEffectActiveState.SetThrusterStartSpeed(0);
+        // thrusterEffectStateManager.ThrusterEffectOnState.SetThrusterStartSpeed(0);
+        thrusterEffectStateManager = new ThrusterEffectStateManager(this);
     }
     
     private ShipMovementSystem GetShipMovementSystem() {
@@ -91,5 +91,16 @@ public class ThrusterEffectInfo : MonoBehaviour
         }
         // Debug.Log("not added to list");
         return false;
+    }
+    public void ToggleThrusterOnOff(bool thrusterOn)
+    {
+        ThrusterEffectBaseState newState;
+        if (thrusterOn) { newState = thrusterEffectStateManager.ThrusterEffectOnState; }
+        else { newState = thrusterEffectStateManager.ThrusterEffectOffState; }
+        thrusterEffectStateManager.CurrentState = newState;
+    }
+    public void ToggleThrusterActiveInactive(bool thrusterActive)
+    {
+        
     }
 }

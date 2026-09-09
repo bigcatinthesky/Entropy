@@ -1,12 +1,26 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class ThrusterEffectActiveState : ThrusterEffectBaseState
+public class ThrusterEffectOnState : ThrusterEffectBaseState
 {
-    public ThrusterEffectActiveState(ThrusterEffectStateManager thrusterEffectStateManager, ThrusterEffectInfo thrusterEffectInfo) : base(thrusterEffectStateManager, thrusterEffectInfo) {}
-    // Set thruster start speed int between 1 and 5, default = 5
-    public void SetThrusterStartSpeed(int startSpeed)
+    private ThrusterEffectSubstateActive thrusterEffectSubstateActive;
+    private ThrusterEffectSubstateInactive thrusterEffectSubstateInactive; 
+    private ThrusterEffectBaseSubstate currentSubstate;
+    public ThrusterEffectBaseSubstate CurrentSubstate { get { return currentSubstate; } set { currentSubstate = value; currentSubstate.EnterState(); } }
+    public ThrusterEffectSubstateActive ThrusterEffectSubstateActive { get { return thrusterEffectSubstateActive; } }
+    public ThrusterEffectSubstateInactive ThrusterEffectSubstateInactive { get { return thrusterEffectSubstateInactive; } }
+    public ThrusterEffectOnState(ThrusterEffectStateManager thrusterEffectStateManager, ThrusterEffectInfo thrusterEffectInfo) : base(thrusterEffectStateManager, thrusterEffectInfo)
     {
-        var main = thrusterEffectInfo.ParticleSystem.main;
-        main.startSpeed = startSpeed;
+        thrusterEffectSubstateActive = new ThrusterEffectSubstateActive(this, thrusterEffectInfo);
+        thrusterEffectSubstateInactive = new ThrusterEffectSubstateInactive(this, thrusterEffectInfo);
+        CurrentSubstate = thrusterEffectSubstateInactive;
     }
+    public override void EnterState() { thrusterOn = true; }
+
+    // Set thruster start speed int between 0 and 5, default = 5
+    // public void SetThrusterStartSpeed(int startSpeed)
+    // {
+    //     var main = thrusterEffectInfo.ParticleSystem.main;
+    //     main.startSpeed = startSpeed;
+    // }
 }

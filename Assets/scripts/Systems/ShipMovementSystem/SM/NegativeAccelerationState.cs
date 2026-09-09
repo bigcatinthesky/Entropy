@@ -28,11 +28,11 @@ public class NegativeAccelerationState : BaseState
     }
     protected override void EnterState()
     {
-        SetThrusterLength(4, moveThrusters);
+        // SetThrusterLength(4, moveThrusters);
     }
     protected override void ExitState()
     {
-        SetThrusterLength(0, moveThrusters);
+        // SetThrusterLength(0, moveThrusters);
     }
 
 }
