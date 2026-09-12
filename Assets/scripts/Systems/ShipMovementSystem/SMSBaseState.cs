@@ -10,26 +10,18 @@ public abstract class SMSBaseState
         this.sMSStateManager = sMSStateManager;
         this.moveThrusters = moveThrusters;
     }
-    protected void ToggleMoveThrusters(bool doEmit)
+    protected void ToggleMoveThrusters(bool doMove)
     {
         foreach(KeyValuePair<string,List<ThrusterEffectInfo>> pair in moveThrusters)
         {
             List <ThrusterEffectInfo> list = pair.Value;
             for(int i = 0; i < list.Count; i++)
             {
-                list[i].ToggleThrusterOnOff(doEmit);
+                list[i].ToggleThrusterOnOff(doMove);
             }
         }
     }
-    protected void EnterState(bool toggleMoveThrusters)
-    {
-        ToggleMoveThrusters(toggleMoveThrusters);
-    }
-    protected void SwitchState(SMSBaseState newState, bool toggleMoveThrusters)
-    {
-        sMSStateManager.CurrentState = newState;
-        newState.EnterState(toggleMoveThrusters);
-    }
-    public abstract void UpdateState(bool doMove);
+    public abstract void EnterState();
+    public abstract void UpdateState();
 
 }

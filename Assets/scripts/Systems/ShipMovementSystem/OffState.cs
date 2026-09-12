@@ -5,8 +5,7 @@ public class OffState : SMSBaseState
 {
     public OffState(SMSStateManager sMSStateManager, Dictionary<string,List<ThrusterEffectInfo>> moveThrusters) : base(sMSStateManager, moveThrusters) {}
 
-    public override void UpdateState(bool doMove)
-    {
-        if(doMove) { SwitchState(sMSStateManager.OnState, true); }
-    }
+    public override void UpdateState() { }
+
+    public override void EnterState() { ToggleMoveThrusters(false); }
 }

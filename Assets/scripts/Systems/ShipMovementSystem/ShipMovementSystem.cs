@@ -8,7 +8,7 @@ public class ShipMovementSystem : MonoBehaviour
 {
     //Temp, to be replaced by control system
     [Header("Input Actions")]
-    [SerializeField] private bool doEmit;
+    [SerializeField] private bool doMoveOnOff;
     [SerializeField] private InputActionReference move;
     [SerializeField] private InputActionReference rotate;
 
@@ -48,6 +48,8 @@ public class ShipMovementSystem : MonoBehaviour
         rotationStateManagerX = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb, rotateThrusters["pitchNegativeThrusters"],rotateThrusters["pitchPositiveThrusters"]);
         rotationStateManagerY = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb, rotateThrusters["yawNegativeThrusters"],rotateThrusters["yawPositiveThrusters"]);
         rotationStateManagerZ = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb, rotateThrusters["rollNegativeThrusters"],rotateThrusters["rollPositiveThrusters"]);
+
+        sMSStateManager.CurrentState = sMSStateManager.OnState;
     }
 
     private void initThrusters()
@@ -82,7 +84,7 @@ public class ShipMovementSystem : MonoBehaviour
 
     void FixedUpdate()
     {
-        sMSStateManager.UpdateState(doEmit);
+        sMSStateManager.CurrentState.UpdateState();
     }
 
     public void DoFixedUpdate()

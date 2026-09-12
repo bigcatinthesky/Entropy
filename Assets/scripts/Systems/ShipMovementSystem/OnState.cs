@@ -8,9 +8,7 @@ public class OnState : SMSBaseState
     {
         this.shipMovementSystem = shipMovementSystem;
     }
-    public override void UpdateState(bool doMove)
-    {
-        if (doMove) { shipMovementSystem.DoFixedUpdate(); }
-        else { SwitchState(sMSStateManager.OffState, false); }
-    }
+    public override void UpdateState() { shipMovementSystem.DoFixedUpdate(); }
+
+    public override void EnterState() { ToggleMoveThrusters(true); }
 }

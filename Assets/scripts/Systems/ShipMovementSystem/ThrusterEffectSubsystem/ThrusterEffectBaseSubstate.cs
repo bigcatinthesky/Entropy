@@ -6,18 +6,12 @@ public abstract class ThrusterEffectBaseSubstate
 {
     protected ThrusterEffectInfo thrusterEffectInfo;
     protected ThrusterEffectOnState superState;
-    protected int len;
     public ThrusterEffectBaseSubstate(ThrusterEffectOnState superState, ThrusterEffectInfo thrusterEffectInfo)
     {
         this.superState = superState;
         this.thrusterEffectInfo = thrusterEffectInfo;
     }
-    public void EnterState()
-    {
-        // UnityEngine.Debug.Log(thrusterEffectInfo.ParticleSystem.main);
-        len = 0;
-        SetThrusterStartSpeed(len);
-    }
+    public abstract void EnterState();
     // takes an int between 0 and 5
     protected void SetThrusterStartSpeed(int startSpeed)
     {
