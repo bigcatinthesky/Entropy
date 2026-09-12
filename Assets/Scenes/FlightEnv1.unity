@@ -157104,6 +157104,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7971936685727394565, guid: 2cd9e7c2a7b23864399dbe8de568ae6f, type: 3}
+      propertyPath: doMove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7971936685727394565, guid: 2cd9e7c2a7b23864399dbe8de568ae6f, type: 3}
       propertyPath: doMoveOnOff
       value: 1
       objectReference: {fileID: 0}

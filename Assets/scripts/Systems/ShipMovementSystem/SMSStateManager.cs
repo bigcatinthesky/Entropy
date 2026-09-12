@@ -6,14 +6,19 @@ public class SMSStateManager
     private SMSBaseState currentState;
     private OnState onState;
     private OffState offState;
-    public SMSBaseState CurrentState { get { return currentState; } set { currentState = value; currentState.EnterState(); } }
+    public SMSBaseState CurrentState { get { return currentState; } }
     public OnState OnState { get { return onState; } }
     public OffState OffState{ get { return offState; } }
-
-    public SMSStateManager(ShipMovementSystem shipMovementSystem, Dictionary<string,List<ThrusterEffectInfo>> moveThrusters)
+    public SMSStateManager(Dictionary<string,List<ThrusterEffectInfo>> moveThrusters, Dictionary<string,List<ThrusterEffectInfo>> rotateThrusters, ShipManager shipManager)
     {
-        offState = new OffState(this, moveThrusters);
-        onState = new OnState(shipMovementSystem, this, moveThrusters);
-        currentState = offState;
+        offState = new OffState(this, moveThrusters, rotateThrusters);
+        onState = new OnState(this, moveThrusters, rotateThrusters, shipManager);
+    }
+
+    public void DoMove(bool doMove)
+    {
+        if (doMove) { currentState = onState; }
+        else { currentState = offState; }
+        currentState.EnterState();
     }
 }

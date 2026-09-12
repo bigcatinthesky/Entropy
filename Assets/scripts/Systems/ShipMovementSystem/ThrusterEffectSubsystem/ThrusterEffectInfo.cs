@@ -51,7 +51,6 @@ public class ThrusterEffectInfo : MonoBehaviour
         FindThrusterList(shipMovementSystem.RotateThrusters, pitchRotateGroup.ToString());
         FindThrusterList(shipMovementSystem.RotateThrusters, yawRotateGroup.ToString());
         FindThrusterList(shipMovementSystem.RotateThrusters, rollRotateGroup.ToString());
-        // thrusterEffectStateManager.ThrusterEffectOnState.SetThrusterStartSpeed(0);
         thrusterEffectStateManager = new ThrusterEffectStateManager(this);
     }
     
@@ -94,10 +93,8 @@ public class ThrusterEffectInfo : MonoBehaviour
     }
     public void ToggleThrusterOnOff(bool thrusterOn)
     {
-        ThrusterEffectBaseState newState;
-        if (thrusterOn) { newState = thrusterEffectStateManager.ThrusterEffectOnState; }
-        else { newState = thrusterEffectStateManager.ThrusterEffectOffState; }
-        thrusterEffectStateManager.CurrentState = newState;
+        if (thrusterOn) { thrusterEffectStateManager.CurrentState = thrusterEffectStateManager.ThrusterEffectOnState; }
+        else { thrusterEffectStateManager.CurrentState = thrusterEffectStateManager.ThrusterEffectOffState; }
     }
     public void ToggleThrusterActiveInactive(bool thrusterActive)
     {

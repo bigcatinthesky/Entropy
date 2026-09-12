@@ -15,7 +15,7 @@ public abstract class RotationBaseState
     public abstract void ExitState();
     protected void SwitchState(RotationBaseState newState)
     {
-        Debug.Log("switch from "+rotationStateManager.CurrentState+" to "+newState);
+        // Debug.Log("switch from "+rotationStateManager.CurrentState+" to "+newState);
         rotationStateManager.CurrentState.ExitState();
         rotationStateManager.CurrentState = newState;
         newState.EnterState();

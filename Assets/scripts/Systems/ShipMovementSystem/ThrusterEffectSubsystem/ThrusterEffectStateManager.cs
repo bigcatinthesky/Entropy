@@ -13,6 +13,5 @@ public class ThrusterEffectStateManager
     {
         thrusterEffectOffState = new ThrusterEffectOffState(this, thrusterEffectInfo);
         thrusterEffectOnState = new ThrusterEffectOnState(this, thrusterEffectInfo);
-        currentState = ThrusterEffectOnState;
     }
 }

@@ -11,11 +11,11 @@ public class ThrusterEffectOnState : ThrusterEffectBaseState
     public ThrusterEffectSubstateInactive ThrusterEffectSubstateInactive { get { return thrusterEffectSubstateInactive; } }
     public ThrusterEffectOnState(ThrusterEffectStateManager thrusterEffectStateManager, ThrusterEffectInfo thrusterEffectInfo) : base(thrusterEffectStateManager, thrusterEffectInfo)
     {
+        doThrust = true;
         thrusterEffectSubstateActive = new ThrusterEffectSubstateActive(this, thrusterEffectInfo);
         thrusterEffectSubstateInactive = new ThrusterEffectSubstateInactive(this, thrusterEffectInfo);
         CurrentSubstate = thrusterEffectSubstateInactive;
     }
-    public override void EnterState() { thrusterOn = true; }
 
     // Set thruster start speed int between 0 and 5, default = 5
     // public void SetThrusterStartSpeed(int startSpeed)

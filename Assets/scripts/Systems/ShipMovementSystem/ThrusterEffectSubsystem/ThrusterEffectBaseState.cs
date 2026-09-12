@@ -2,21 +2,19 @@ using UnityEngine;
 
 public abstract class ThrusterEffectBaseState
 {
-    protected bool thrusterOn;
     protected ThrusterEffectStateManager thrusterEffectStateManager;
     protected ThrusterEffectInfo thrusterEffectInfo;
+    protected bool doThrust;
     public ThrusterEffectBaseState(ThrusterEffectStateManager thrusterEffectStateManager, ThrusterEffectInfo thrusterEffectInfo)
     {
         this.thrusterEffectStateManager = thrusterEffectStateManager;
         this.thrusterEffectInfo = thrusterEffectInfo;
-        thrusterOn = thrusterEffectInfo.ParticleSystem.emission.enabled;
     }
-    protected void SwitchState(ThrusterEffectBaseState newState)
+    public void EnterState()
     {
-        thrusterEffectStateManager.CurrentState = newState;
-        newState.EnterState();
+        var emission = thrusterEffectInfo.ParticleSystem.emission;
+        emission.enabled = doThrust;
     }
-    public abstract void EnterState();
     // public void InitNewState()
     // {
     //     thrusterEffectStateManager.CurrentState = this;
