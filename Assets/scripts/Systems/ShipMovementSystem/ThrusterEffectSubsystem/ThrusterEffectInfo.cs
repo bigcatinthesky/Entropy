@@ -13,7 +13,6 @@ public class ThrusterEffectInfo : MonoBehaviour
     [SerializeField] private RollRotateGroup rollRotateGroup;
 
     public ParticleSystem ParticleSystem { get { return particleSystem; } }
-    public ThrusterEffectStateManager ThrusterEffectStateManager { get { return thrusterEffectStateManager; } }
     [SerializeField] private enum MoveGroup
     {
         aftThrusters,

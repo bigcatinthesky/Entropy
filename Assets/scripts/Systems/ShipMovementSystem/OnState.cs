@@ -21,14 +21,14 @@ public class OnState : SMSBaseState
     public override void UpdateState(Transform transform, Vector3 move, Vector3 rotate) 
     {   
         Vector3 localV = transform.InverseTransformDirection(shipManager.Rb.linearVelocity);
-        stateManagerX.UpdateState(move.x, (float)Math.Round(localV.x,1), shipManager.Trans.right);
-        stateManagerY.UpdateState(move.y*-1, (float)Math.Round(localV.y,1), shipManager.Trans.up);
-        stateManagerZ.UpdateState(move.z, (float)Math.Round(localV.z,1), shipManager.Trans.forward);
+        stateManagerX.CurrentState.UpdateState(move.x, (float)Math.Round(localV.x,1), shipManager.Trans.right);
+        stateManagerY.CurrentState.UpdateState(move.y*-1, (float)Math.Round(localV.y,1), shipManager.Trans.up);
+        stateManagerZ.CurrentState.UpdateState(move.z, (float)Math.Round(localV.z,1), shipManager.Trans.forward);
 
         Vector3 localT = transform.InverseTransformDirection(shipManager.Rb.angularVelocity);
-        rotationStateManagerX.UpdateState(rotate.x, (float)Math.Round(localT.x,2), shipManager.Trans.right);
-        rotationStateManagerY.UpdateState(rotate.y, (float)Math.Round(localT.y,2), shipManager.Trans.up);
-        rotationStateManagerZ.UpdateState(rotate.z, (float)Math.Round(localT.z,2), shipManager.Trans.forward);
+        rotationStateManagerX.CurrentState.UpdateState(rotate.x, (float)Math.Round(localT.x,2), shipManager.Trans.right);
+        rotationStateManagerY.CurrentState.UpdateState(rotate.y, (float)Math.Round(localT.y,2), shipManager.Trans.up);
+        rotationStateManagerZ.CurrentState.UpdateState(rotate.z, (float)Math.Round(localT.z,2), shipManager.Trans.forward);
     }
     public override void EnterState() { ToggleMoveThrusters(true); }
 

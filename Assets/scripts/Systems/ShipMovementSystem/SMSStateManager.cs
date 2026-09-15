@@ -14,7 +14,6 @@ public class SMSStateManager
         offState = new OffState(this, moveThrusters, rotateThrusters);
         onState = new OnState(this, moveThrusters, rotateThrusters, shipManager);
     }
-
     public void DoMove(bool doMove)
     {
         if (doMove) { currentState = onState; }

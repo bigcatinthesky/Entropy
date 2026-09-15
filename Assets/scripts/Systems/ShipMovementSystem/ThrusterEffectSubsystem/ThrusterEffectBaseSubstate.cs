@@ -12,8 +12,9 @@ public abstract class ThrusterEffectBaseSubstate
         this.thrusterEffectInfo = thrusterEffectInfo;
     }
     public abstract void EnterState();
+    
     // takes an int between 0 and 5
-    protected void SetThrusterStartSpeed(int startSpeed)
+    public void SetThrusterStartSpeed(int startSpeed)
     {
         var main = thrusterEffectInfo.ParticleSystem.main;
         main.startSpeed = startSpeed;
