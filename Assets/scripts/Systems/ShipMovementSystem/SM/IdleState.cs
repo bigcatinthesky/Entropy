@@ -5,7 +5,8 @@ using Unity.VisualScripting;
 public class IdleState : BaseState
 {
 
-    public IdleState(bool dampen, StateManager stateManager, List<ThrusterEffectInfo> moveThrusters) : base(stateManager, dampen, moveThrusters) {}
+    public IdleState(bool dampen, StateManager stateManager, List<ThrusterEffectInfo> moveThrusters, OnState smsOnState) 
+        : base(stateManager, dampen, moveThrusters, smsOnState) {}
     public override void UpdateState(float moveActionValue, float localV, Vector3 trans)
     {
         
@@ -18,5 +19,8 @@ public class IdleState : BaseState
             stateManager.CurrentState = stateManager.NegativeAccelerationState;;
         }
     }
-    public override void EnterState() {}
+    public override void EnterState()
+    {
+        ToggleThrusters(false);
+    }
 }

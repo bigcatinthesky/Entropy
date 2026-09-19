@@ -5,7 +5,8 @@ public class NegativeAccelerationState : BaseState
 {
     private float accelerationForce;
     private Rigidbody rb;
-    public NegativeAccelerationState(bool dampen, StateManager stateManager, float accelerationForce, Rigidbody rb, List<ThrusterEffectInfo> moveThrusters) : base(stateManager, dampen, moveThrusters)
+    public NegativeAccelerationState(bool dampen, StateManager stateManager, float accelerationForce, Rigidbody rb, List<ThrusterEffectInfo> moveThrusters, OnState smsOnState) 
+        : base(stateManager, dampen, moveThrusters, smsOnState)
     {
         this.accelerationForce = accelerationForce;
         this.rb = rb;
@@ -26,7 +27,7 @@ public class NegativeAccelerationState : BaseState
     }
     public override void EnterState()
     {
-        // SetThrusterLength(4, moveThrusters);
+        ToggleThrusters(true);
     }
 
 }

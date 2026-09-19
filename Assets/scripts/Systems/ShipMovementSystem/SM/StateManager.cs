@@ -7,22 +7,22 @@ public class StateManager
     private IdleState idleState;
     private PositiveAccelerationState positveAccelerationState;
     private NegativeAccelerationState negativeAccelerationState;
-    private OnState onState;
+    private OnState smsOnState;
     public BaseState CurrentState { get { return currentState; } set { currentState = value; currentState.EnterState(); } }
     public IdleState IdleState { get { return idleState; } }
     public PositiveAccelerationState PositiveAccelerationState { get { return positveAccelerationState; } }
     public NegativeAccelerationState NegativeAccelerationState { get { return negativeAccelerationState; } }
 
     public StateManager(bool dampen, float positiveAccelerationForce, float negativeAccelerationForce, Rigidbody rb, List<ThrusterEffectInfo> positiveThrusters, 
-        List<ThrusterEffectInfo> negativeThrusters, OnState onState)
+        List<ThrusterEffectInfo> negativeThrusters, OnState smsOnState)
     {
-        this.onState = onState;
+        this.smsOnState = smsOnState;
         List<ThrusterEffectInfo> allThursters = new List<ThrusterEffectInfo>(positiveThrusters.Count+negativeThrusters.Count);
         allThursters.AddRange(positiveThrusters);
         allThursters.AddRange(negativeThrusters);
-        idleState = new IdleState(dampen, this, allThursters);
-        positveAccelerationState = new PositiveAccelerationState(dampen, this, positiveAccelerationForce, rb, positiveThrusters);
-        negativeAccelerationState = new NegativeAccelerationState(dampen, this, negativeAccelerationForce, rb, negativeThrusters);
+        idleState = new IdleState(dampen, this, allThursters, smsOnState);
+        positveAccelerationState = new PositiveAccelerationState(dampen, this, positiveAccelerationForce, rb, positiveThrusters, smsOnState);
+        negativeAccelerationState = new NegativeAccelerationState(dampen, this, negativeAccelerationForce, rb, negativeThrusters, smsOnState);
         CurrentState = idleState;
     }
     // public void UpdateState(float moveActionValue, float localV, Vector3 trans)
