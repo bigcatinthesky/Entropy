@@ -15,8 +15,6 @@ public class IdleRotationState : RotationBaseState
             rotationStateManager.CurrentState = rotationStateManager.NegativeTorqueState;
         }
     }
-    public override void EnterState()
-    {
-        ToggleThrusters(false);
-    }
+    public override void EnterState() {}
+    public override void ExitState() {}
 }

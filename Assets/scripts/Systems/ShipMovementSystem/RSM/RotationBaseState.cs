@@ -14,10 +14,7 @@ public abstract class RotationBaseState
     }
     public abstract void UpdateState(float rotationActionValue, float localT, Vector3 trans);
     public abstract void EnterState();
-    // protected void SwitchState(RotationBaseState newState)
-    // {
-    //     rotationStateManager.CurrentState = newState;
-    // }
+    public abstract void ExitState();
     protected void ApplyTorque(float rotationActionValue, Vector3 trans, Rigidbody rb, float rotationTorque)
     {
         rb.AddTorque(trans * Time.fixedDeltaTime * rotationTorque * rotationActionValue*-1, ForceMode.Acceleration);

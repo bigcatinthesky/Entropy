@@ -28,5 +28,8 @@ public class NegativeTorqueState : RotationBaseState
     {
         ToggleThrusters(true);
     }
-
+    public override void ExitState()
+    {
+        ToggleThrusters(false);
+    }
 }

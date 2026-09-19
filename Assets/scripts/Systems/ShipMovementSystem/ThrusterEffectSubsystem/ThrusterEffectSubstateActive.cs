@@ -11,7 +11,7 @@ public class ThrusterEffectSubstateActive : ThrusterEffectBaseSubstate
 
     public override void EnterState()
     {
-        startSpeed = 0;
+        startSpeed = 5;
         SetThrusterStartSpeed(startSpeed);
     }
 

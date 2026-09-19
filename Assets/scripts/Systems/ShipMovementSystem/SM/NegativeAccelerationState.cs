@@ -29,5 +29,8 @@ public class NegativeAccelerationState : BaseState
     {
         ToggleThrusters(true);
     }
-
+    public override void ExitState()
+    {
+        ToggleThrusters(false);
+    }
 }

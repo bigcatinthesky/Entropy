@@ -9,15 +9,14 @@ public class RotationStateManager
     private PositiveTorqueState positiveTorqueState;
     private NegativeTorqueState negativeTorqueState;
 
-    public RotationBaseState CurrentState { get { return currentState; } set { currentState = value; currentState.EnterState(); } }
+    public RotationBaseState CurrentState { get { return currentState; } set { if(currentState != null) currentState.ExitState(); currentState = value; currentState.EnterState(); } }
     public IdleRotationState IdleRotationState { get { return idleRotationState; } }
     public PositiveTorqueState PositiveTorqueState { get { return positiveTorqueState; } }
     public NegativeTorqueState NegativeTorqueState { get { return negativeTorqueState; } }
 
     public RotationStateManager(float rotationTourque, Rigidbody rb, List<ThrusterEffectInfo> positiveRotateThrusters, List<ThrusterEffectInfo> negativeRotateThrusters, OnState smsOnState)
     {
-        List<ThrusterEffectInfo> allThursters = new List<ThrusterEffectInfo>(negativeRotateThrusters.Count+positiveRotateThrusters.Count);
-        idleRotationState = new IdleRotationState(this, allThursters, smsOnState);
+        idleRotationState = new IdleRotationState(this, null, smsOnState);
         positiveTorqueState = new PositiveTorqueState(this, rotationTourque, rb, positiveRotateThrusters, smsOnState);
         negativeTorqueState = new NegativeTorqueState(this, rotationTourque, rb, negativeRotateThrusters, smsOnState);
         CurrentState = idleRotationState;

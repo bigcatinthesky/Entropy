@@ -17,6 +17,7 @@ public abstract class BaseState
     }
     public abstract void UpdateState(float moveActionValue, float localV, Vector3 trans);
     public abstract void EnterState();
+    public abstract void ExitState();
     protected void Accelerate(float moveActionValue, Vector3 trans, Rigidbody rb, float accelerationForce)
     {
         rb.AddForce(trans * Time.fixedDeltaTime * accelerationForce * moveActionValue*-1, ForceMode.Force);

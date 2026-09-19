@@ -19,8 +19,6 @@ public class IdleState : BaseState
             stateManager.CurrentState = stateManager.NegativeAccelerationState;;
         }
     }
-    public override void EnterState()
-    {
-        ToggleThrusters(false);
-    }
+    public override void EnterState() {}
+    public override void ExitState() {}
 }

@@ -97,9 +97,7 @@ public class ThrusterEffectInfo : MonoBehaviour
     }
     public void ToggleThrusterActiveInactive(bool thrusterActive)
     {
-        ThrusterEffectBaseSubstate newSubstate;
-        if (thrusterActive) { newSubstate = thrusterEffectStateManager.ThrusterEffectOnState.ThrusterEffectSubstateActive; }
-        else { newSubstate = thrusterEffectStateManager.ThrusterEffectOnState.ThrusterEffectSubstateInactive; }
-        thrusterEffectStateManager.ThrusterEffectOnState.CurrentSubstate = newSubstate;
+        if (thrusterActive) {  thrusterEffectStateManager.ThrusterEffectOnState.CurrentSubstate = thrusterEffectStateManager.ThrusterEffectOnState.ThrusterEffectSubstateActive; }
+        else {  thrusterEffectStateManager.ThrusterEffectOnState.CurrentSubstate = thrusterEffectStateManager.ThrusterEffectOnState.ThrusterEffectSubstateInactive; }
     }
 }
