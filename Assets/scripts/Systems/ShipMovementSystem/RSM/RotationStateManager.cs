@@ -14,14 +14,12 @@ public class RotationStateManager
     public PositiveTorqueState PositiveTorqueState { get { return positiveTorqueState; } }
     public NegativeTorqueState NegativeTorqueState { get { return negativeTorqueState; } }
 
-    public RotationStateManager(float rotationTourque, Rigidbody rb, List<ThrusterEffectInfo> positiveRotateThrusters, List<ThrusterEffectInfo> negativeRotateThrusters)
+    public RotationStateManager(float rotationTourque, Rigidbody rb, List<ThrusterEffectInfo> positiveRotateThrusters, List<ThrusterEffectInfo> negativeRotateThrusters, OnState smsOnState)
     {
         List<ThrusterEffectInfo> allThursters = new List<ThrusterEffectInfo>(negativeRotateThrusters.Count+positiveRotateThrusters.Count);
-        allThursters.AddRange(positiveRotateThrusters);
-        allThursters.AddRange(negativeRotateThrusters);
-        idleRotationState = new IdleRotationState(this, allThursters);
-        positiveTorqueState = new PositiveTorqueState(this, rotationTourque, rb, positiveRotateThrusters);
-        negativeTorqueState = new NegativeTorqueState(this, rotationTourque, rb, negativeRotateThrusters);
+        idleRotationState = new IdleRotationState(this, allThursters, smsOnState);
+        positiveTorqueState = new PositiveTorqueState(this, rotationTourque, rb, positiveRotateThrusters, smsOnState);
+        negativeTorqueState = new NegativeTorqueState(this, rotationTourque, rb, negativeRotateThrusters, smsOnState);
         CurrentState = idleRotationState;
     }
     // public void UpdateState(float rotationActionValue, float localT, Vector3 trans)

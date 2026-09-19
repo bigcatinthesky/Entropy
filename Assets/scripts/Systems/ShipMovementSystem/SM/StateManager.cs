@@ -7,14 +7,16 @@ public class StateManager
     private IdleState idleState;
     private PositiveAccelerationState positveAccelerationState;
     private NegativeAccelerationState negativeAccelerationState;
-
+    private OnState onState;
     public BaseState CurrentState { get { return currentState; } set { currentState = value; currentState.EnterState(); } }
     public IdleState IdleState { get { return idleState; } }
     public PositiveAccelerationState PositiveAccelerationState { get { return positveAccelerationState; } }
     public NegativeAccelerationState NegativeAccelerationState { get { return negativeAccelerationState; } }
 
-    public StateManager(bool dampen, float positiveAccelerationForce, float negativeAccelerationForce, Rigidbody rb, List<ThrusterEffectInfo> positiveThrusters, List<ThrusterEffectInfo> negativeThrusters)
+    public StateManager(bool dampen, float positiveAccelerationForce, float negativeAccelerationForce, Rigidbody rb, List<ThrusterEffectInfo> positiveThrusters, 
+        List<ThrusterEffectInfo> negativeThrusters, OnState onState)
     {
+        this.onState = onState;
         List<ThrusterEffectInfo> allThursters = new List<ThrusterEffectInfo>(positiveThrusters.Count+negativeThrusters.Count);
         allThursters.AddRange(positiveThrusters);
         allThursters.AddRange(negativeThrusters);

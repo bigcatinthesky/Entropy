@@ -34,13 +34,29 @@ public class OnState : SMSBaseState
 
     private void initStateManagers()
     {
-        stateManagerX = new StateManager(true, shipManager.ShipProfile.TangentAcclerationForce, shipManager.ShipProfile.TangentAcclerationForce, shipManager.Rb, moveThrusters["rightThrusters"], moveThrusters["leftThrusters"]);
-        stateManagerY = new StateManager(true, shipManager.ShipProfile.TangentAcclerationForce, shipManager.ShipProfile.TangentAcclerationForce, shipManager.Rb, moveThrusters["downThrusters"], moveThrusters["upThrusters"]);
-        stateManagerZ = new StateManager(false, shipManager.ShipProfile.ForeAcclerationForce, shipManager.ShipProfile.AftAccelerationForce, shipManager.Rb, moveThrusters["foreThrusters"], moveThrusters["aftThrusters"]);
+        stateManagerX = new StateManager(true, shipManager.ShipProfile.TangentAcclerationForce, shipManager.ShipProfile.TangentAcclerationForce, 
+            shipManager.Rb, moveThrusters["rightThrusters"], moveThrusters["leftThrusters"],this);
+        stateManagerY = new StateManager(true, shipManager.ShipProfile.TangentAcclerationForce, shipManager.ShipProfile.TangentAcclerationForce,
+            shipManager.Rb, moveThrusters["downThrusters"], moveThrusters["upThrusters"], this);
+        stateManagerZ = new StateManager(false, shipManager.ShipProfile.ForeAcclerationForce, shipManager.ShipProfile.AftAccelerationForce,
+            shipManager.Rb, moveThrusters["foreThrusters"], moveThrusters["aftThrusters"], this);
 
-        rotationStateManagerX = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb, rotateThrusters["pitchNegativeThrusters"],rotateThrusters["pitchPositiveThrusters"]);
-        rotationStateManagerY = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb, rotateThrusters["yawNegativeThrusters"],rotateThrusters["yawPositiveThrusters"]);
-        rotationStateManagerZ = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb, rotateThrusters["rollNegativeThrusters"],rotateThrusters["rollPositiveThrusters"]);
+        rotationStateManagerX = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb, 
+            rotateThrusters["pitchNegativeThrusters"],rotateThrusters["pitchPositiveThrusters"],this);
+        rotationStateManagerY = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb, 
+            rotateThrusters["yawNegativeThrusters"],rotateThrusters["yawPositiveThrusters"],this);
+        rotationStateManagerZ = new RotationStateManager(shipManager.ShipProfile.TorqueForce, shipManager.Rb, 
+            rotateThrusters["rollNegativeThrusters"],rotateThrusters["rollPositiveThrusters"],this);
 
+    }
+    public void ToggleThrusters(bool activeInactive, List<ThrusterEffectInfo> thrusterEffects)
+    {
+        if (thrusterEffects != null)
+        {
+            for (int i = 0; i < thrusterEffects.Count; i++)
+            {
+                thrusterEffects[i].ToggleThrusterActiveInactive(activeInactive);
+            }
+        }
     }
 }

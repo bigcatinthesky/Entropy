@@ -5,7 +5,7 @@ public class NegativeTorqueState : RotationBaseState
 {
     private Rigidbody rb;
     private float torqueForce;
-    public NegativeTorqueState(RotationStateManager rotationStateManager, float torqueForce, Rigidbody rb, List<ThrusterEffectInfo> rotateThrusters) : base(rotationStateManager, rotateThrusters)
+    public NegativeTorqueState(RotationStateManager rotationStateManager, float torqueForce, Rigidbody rb, List<ThrusterEffectInfo> rotateThrusters, OnState smsOnState) : base(rotationStateManager, rotateThrusters,smsOnState)
     {
         this.rb = rb;
         this.torqueForce = torqueForce;
@@ -26,7 +26,7 @@ public class NegativeTorqueState : RotationBaseState
     }
     public override void EnterState()
     {
-        // SetThrusterLength(4, rotateThrusters);
+        ToggleThrusters(true);
     }
 
 }

@@ -5,8 +5,10 @@ public abstract class RotationBaseState
 {
     protected List<ThrusterEffectInfo> rotateThrusters;
     protected RotationStateManager rotationStateManager;
-    protected RotationBaseState(RotationStateManager rotationStateManager, List<ThrusterEffectInfo> rotateThrusters)
+    private OnState smsOnState;
+    protected RotationBaseState(RotationStateManager rotationStateManager, List<ThrusterEffectInfo> rotateThrusters, OnState smsOnState)
     {
+        this.smsOnState = smsOnState;
         this.rotationStateManager = rotationStateManager;
         this.rotateThrusters = rotateThrusters;
     }
@@ -20,14 +22,8 @@ public abstract class RotationBaseState
     {
         rb.AddTorque(trans * Time.fixedDeltaTime * rotationTorque * rotationActionValue*-1, ForceMode.Acceleration);
     }
-    protected void ToggleThrusters(bool activeInactive)
+    protected void ToggleThrusters(bool toggleThrusters)
     {
-        if (rotateThrusters != null)
-        {
-            for (int i = 0; i < rotateThrusters.Count; i++)
-            {
-                rotateThrusters[i].ToggleThrusterActiveInactive(activeInactive);
-            }
-        }
+        smsOnState.ToggleThrusters(toggleThrusters, rotateThrusters);
     }
 }
