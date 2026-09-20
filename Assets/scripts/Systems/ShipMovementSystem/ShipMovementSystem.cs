@@ -70,5 +70,5 @@ public class ShipMovementSystem : MonoBehaviour
         sMSStateManager.DoMove(doMove);
         sMSStateManager.CurrentState.UpdateState(transform, move.action.ReadValue<Vector3>(), rotate.action.ReadValue<Vector3>());
     }
-
+    //blah
 }
