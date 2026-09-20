@@ -62,7 +62,6 @@ public class ShipMovementSystem : MonoBehaviour
         sMSStateManager = new SMSStateManager(moveThrusters, rotateThrusters, shipManager);
 
     }
-
     void FixedUpdate()
     {
         sMSStateManager.DoMove(doMove);
