@@ -66,7 +66,6 @@ public class ShipMovementSystem : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Debug.Log(move.action.ReadValue<Vector3>()+rotate.action.ReadValue<Vector3>());
         sMSStateManager.DoMove(doMove);
         sMSStateManager.CurrentState.UpdateState(transform, move.action.ReadValue<Vector3>(), rotate.action.ReadValue<Vector3>());
     }
