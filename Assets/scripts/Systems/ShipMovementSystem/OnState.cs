@@ -51,13 +51,13 @@ public class OnState : SMSBaseState
     }
     public void ToggleThrusters(bool activeInactive, List<ThrusterEffectInfo> thrusterEffects)
     {
-        Debug.Log(thrusterEffects.Count);
+        // Debug.Log(thrusterEffects.Count);
         if (thrusterEffects != null)
         {
             for (int i = 0; i < thrusterEffects.Count; i++)
             {
                 thrusterEffects[i].ToggleThrusterActiveInactive(activeInactive);
-                Debug.Log("toggled thruster #"+i+": "+activeInactive);
+                // Debug.Log("toggled thruster #"+i+": "+activeInactive);
             }
         }
     }
