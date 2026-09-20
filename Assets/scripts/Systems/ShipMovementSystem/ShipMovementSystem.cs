@@ -58,8 +58,7 @@ public class ShipMovementSystem : MonoBehaviour
     void Start()
     {
         shipManager = GetComponent<ShipManager>();
-        initThrusters();
-        // initStateManagers();     
+        initThrusters();   
         sMSStateManager = new SMSStateManager(moveThrusters, rotateThrusters, shipManager);
 
     }
