@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PersonellManager : MonoBehaviour
 {
-    [SerializeField] protected bool unCrewed;
+    [SerializeField] private bool unCrewed;
+    private VehicleControlManager vehicleControlManager;
+    public VehicleControlManager VehicleControlManager { get { return vehicleControlManager; } }
     public bool IsCrewed { get { return unCrewed; } }
-    protected PlayerManager playerManager;
-    public PlayerManager PlayerManager { get { return playerManager; } }
 }
