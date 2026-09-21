@@ -7,17 +7,16 @@ public class ShipManager : VehicleTypeBase
 {
     [SerializeField] private ShipProfile shipProfile;
     private ShipMovementSystem shipMovementSystem;
-    private ShipLandingSystem shipLandingSystem;
-    private ShipVTOLSystem shipVTOLSystem;
+    private ShipControlSystemManager shipControlSystemManager;
+    // private ShipLandingSystem shipLandingSystem;
+    // private ShipVTOLSystem shipVTOLSystem;
     public ShipProfile ShipProfile { get { return shipProfile; } }
-    public ShipMovementSystem ShipMovmentSystem { get { return ShipMovmentSystem; } }
+    public ShipMovementSystem ShipMovementSystem { get { return shipMovementSystem; } }
+    public ShipControlSystemManager ShipControlSystemManager { get { return shipControlSystemManager; } }
     public ShipLandingSystem ShipLandingSystem { get { return ShipLandingSystem; } }
     void Start()
     {
         shipMovementSystem = GetComponent<ShipMovementSystem>();
-    }
-    void FixedUpdate()
-    {
-        
+        shipControlSystemManager = GetComponent<ShipControlSystemManager>();
     }
 }

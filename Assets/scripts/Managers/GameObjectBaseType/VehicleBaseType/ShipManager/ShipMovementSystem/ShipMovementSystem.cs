@@ -7,10 +7,10 @@ using System.Linq;
 public class ShipMovementSystem : MonoBehaviour
 {
     // Temp, to be replaced by control system
-    [Header("Input Actions")]
+    // [Header("Input Actions")]
     [SerializeField] private bool doMove;
-    [SerializeField] private InputActionReference move;
-    [SerializeField] private InputActionReference rotate;
+    // [SerializeField] private InputActionReference move;
+    // [SerializeField] private InputActionReference rotate;
 
     private SMSStateManager sMSStateManager;
     private ShipManager shipManager;
@@ -21,17 +21,17 @@ public class ShipMovementSystem : MonoBehaviour
     public Dictionary<string,List<ThrusterEffectInfo>> MoveThrusters { get { return moveThrusters; } }
 
 
-    private void OnEnable()
-    {
-        move.action.Enable();
-        rotate.action.Enable();
-    }
+    // private void OnEnable()
+    // {
+    //     move.action.Enable();
+    //     rotate.action.Enable();
+    // }
 
-    private void OnDisable()
-    {
-        move.action.Disable();
-        rotate.action.Disable();
-    }
+    // private void OnDisable()
+    // {
+    //     move.action.Disable();
+    //     rotate.action.Disable();
+    // }
 
     private void initThrusters()
     {
@@ -68,6 +68,6 @@ public class ShipMovementSystem : MonoBehaviour
         // InputActionReference move = shipManager.VehicleControlManager.VehicleControlBaseType.
 
         sMSStateManager.DoMove(doMove);
-        sMSStateManager.CurrentState.UpdateState(transform, move.action.ReadValue<Vector3>(), rotate.action.ReadValue<Vector3>());
+        sMSStateManager.CurrentState.UpdateState(transform, shipManager.ShipControlSystemManager.CurrentControlType.MoveOutput, shipManager.ShipControlSystemManager.CurrentControlType.RotateOutput);
     }
 }
