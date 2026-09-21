@@ -16,7 +16,6 @@ public class ShipManager : VehicleTypeBase
     {
         shipMovementSystem = GetComponent<ShipMovementSystem>();
     }
-
     void FixedUpdate()
     {
         
