@@ -6,7 +6,7 @@ using System.Linq;
 
 public class ShipMovementSystem : MonoBehaviour
 {
-    //Temp, to be replaced by control system
+    // Temp, to be replaced by control system
     [Header("Input Actions")]
     [SerializeField] private bool doMove;
     [SerializeField] private InputActionReference move;
@@ -65,6 +65,8 @@ public class ShipMovementSystem : MonoBehaviour
     
     void FixedUpdate()
     {
+        // InputActionReference move = shipManager.VehicleControlManager.VehicleControlBaseType.
+
         sMSStateManager.DoMove(doMove);
         sMSStateManager.CurrentState.UpdateState(transform, move.action.ReadValue<Vector3>(), rotate.action.ReadValue<Vector3>());
     }
