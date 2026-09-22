@@ -289,6 +289,15 @@ public partial class @Playercontrols: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""toggle thrust"",
+                    ""type"": ""Button"",
+                    ""id"": ""9998342b-907f-4503-9ae0-ff547be0f33c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -313,6 +322,17 @@ public partial class @Playercontrols: IInputActionCollection2, IDisposable
                     ""action"": ""jettison"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3b6022c1-45fc-482e-a072-9db0475f378a"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""toggle thrust"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -327,6 +347,7 @@ public partial class @Playercontrols: IInputActionCollection2, IDisposable
         m_utility = asset.FindActionMap("utility", throwIfNotFound: true);
         m_utility_gear = m_utility.FindAction("gear", throwIfNotFound: true);
         m_utility_jettison = m_utility.FindAction("jettison", throwIfNotFound: true);
+        m_utility_togglethrust = m_utility.FindAction("toggle thrust", throwIfNotFound: true);
     }
 
     ~@Playercontrols()
@@ -517,6 +538,7 @@ public partial class @Playercontrols: IInputActionCollection2, IDisposable
     private List<IUtilityActions> m_UtilityActionsCallbackInterfaces = new List<IUtilityActions>();
     private readonly InputAction m_utility_gear;
     private readonly InputAction m_utility_jettison;
+    private readonly InputAction m_utility_togglethrust;
     /// <summary>
     /// Provides access to input actions defined in input action map "utility".
     /// </summary>
@@ -536,6 +558,10 @@ public partial class @Playercontrols: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "utility/jettison".
         /// </summary>
         public InputAction @jettison => m_Wrapper.m_utility_jettison;
+        /// <summary>
+        /// Provides access to the underlying input action "utility/togglethrust".
+        /// </summary>
+        public InputAction @togglethrust => m_Wrapper.m_utility_togglethrust;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -568,6 +594,9 @@ public partial class @Playercontrols: IInputActionCollection2, IDisposable
             @jettison.started += instance.OnJettison;
             @jettison.performed += instance.OnJettison;
             @jettison.canceled += instance.OnJettison;
+            @togglethrust.started += instance.OnTogglethrust;
+            @togglethrust.performed += instance.OnTogglethrust;
+            @togglethrust.canceled += instance.OnTogglethrust;
         }
 
         /// <summary>
@@ -585,6 +614,9 @@ public partial class @Playercontrols: IInputActionCollection2, IDisposable
             @jettison.started -= instance.OnJettison;
             @jettison.performed -= instance.OnJettison;
             @jettison.canceled -= instance.OnJettison;
+            @togglethrust.started -= instance.OnTogglethrust;
+            @togglethrust.performed -= instance.OnTogglethrust;
+            @togglethrust.canceled -= instance.OnTogglethrust;
         }
 
         /// <summary>
@@ -661,5 +693,12 @@ public partial class @Playercontrols: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnJettison(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "toggle thrust" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTogglethrust(InputAction.CallbackContext context);
     }
 }

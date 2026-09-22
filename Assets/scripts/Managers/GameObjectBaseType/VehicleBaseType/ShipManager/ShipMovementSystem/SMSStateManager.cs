@@ -14,10 +14,19 @@ public class SMSStateManager
         offState = new OffState(this, moveThrusters, rotateThrusters);
         onState = new OnState(this, moveThrusters, rotateThrusters, shipManager);
     }
-    public void DoMove(bool doMove)
+    public void MoveOn()
     {
-        if (doMove) { currentState = onState; }
-        else { currentState = offState; }
+        if (currentState != onState) { currentState = onState; }
         currentState.EnterState();
+    }
+    public void MoveOff()
+    {
+        if (currentState != offState) { currentState = offState; }
+        currentState.EnterState();
+    }
+    public void ToggleOnOff()
+    {
+        if (currentState == onState) { MoveOff(); }
+        else { MoveOn(); }
     }
 }

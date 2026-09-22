@@ -107999,18 +107999,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4524893567896420965, guid: 2cd9e7c2a7b23864399dbe8de568ae6f, type: 3}
   m_PrefabInstance: {fileID: 6321775367162121420}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1433090476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1433090472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3600f768b131b1c4bbf68119d9d4f229, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
 --- !u!114 &1433090477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108045,6 +108033,32 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 5.765289, z: 29.762459}
   m_Center: {x: 0, y: -1.1642025, z: -12.119152}
+--- !u!114 &1433090485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433090472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f26c1b61f5a8c23f2aa34c6197b8cce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerShipControlType
+  move: {fileID: 5142482987344469528, guid: 1ecf2ea1d3c39174883ffeab3d1a7e25, type: 3}
+  rotate: {fileID: 3795151530064314639, guid: 1ecf2ea1d3c39174883ffeab3d1a7e25, type: 3}
+--- !u!114 &1433090486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433090472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8577b1db771ee9f129fd4bc887877cbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShipControlSystemManager
 --- !u!4 &1458485304 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3019931571348174582, guid: 2cd9e7c2a7b23864399dbe8de568ae6f, type: 3}
@@ -157258,10 +157272,13 @@ PrefabInstance:
       addedObject: {fileID: 1433090477}
     - targetCorrespondingSourceObject: {fileID: 4524893567896420965, guid: 2cd9e7c2a7b23864399dbe8de568ae6f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1433090476}
+      addedObject: {fileID: 1433090481}
     - targetCorrespondingSourceObject: {fileID: 4524893567896420965, guid: 2cd9e7c2a7b23864399dbe8de568ae6f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1433090481}
+      addedObject: {fileID: 1433090486}
+    - targetCorrespondingSourceObject: {fileID: 4524893567896420965, guid: 2cd9e7c2a7b23864399dbe8de568ae6f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1433090485}
   m_SourcePrefab: {fileID: 100100000, guid: 2cd9e7c2a7b23864399dbe8de568ae6f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
