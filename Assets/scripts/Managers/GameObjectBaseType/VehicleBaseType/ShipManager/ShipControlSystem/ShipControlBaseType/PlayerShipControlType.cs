@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
+using UnityEngine.InputSystem.Interactions;
 
 public class PlayerShipControlType : ShipControlBaseType
 {
@@ -8,6 +8,7 @@ public class PlayerShipControlType : ShipControlBaseType
     [SerializeField] private InputActionReference move;
     [SerializeField] private InputActionReference rotate;
     [SerializeField] private InputActionReference toggleThrust;
+    private ShipControlSystemManager shipControlSystemManager;
     private void OnEnable()
     {
         move.action.Enable();
@@ -20,12 +21,18 @@ public class PlayerShipControlType : ShipControlBaseType
         rotate.action.Disable();
         toggleThrust.action.Disable();
     }
-
-    private void FixedUpdate()
+    void Start()
+    {
+        toggleThrust.action.performed += ToggleThrustPerformed;
+        shipControlSystemManager = GetComponent<ShipControlSystemManager>();
+    }
+    void Update()
     {
         moveOutput = move.action.ReadValue<Vector3>();
         rotateOutput = rotate.action.ReadValue<Vector3>();
-        toggleThrustOutput = toggleThrust.action.IsPressed();
-        // Debug.Log(toggleThrust.action.IsPressed()); 
+    }
+    void ToggleThrustPerformed(InputAction.CallbackContext context)
+    {
+        shipControlSystemManager.ShipManager.ShipMovementSystem.SMSStateManager.ToggleOnOff();
     }
 }

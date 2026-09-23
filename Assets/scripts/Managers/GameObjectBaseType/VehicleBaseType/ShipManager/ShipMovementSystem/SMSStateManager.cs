@@ -13,6 +13,8 @@ public class SMSStateManager
     {
         offState = new OffState(this, moveThrusters, rotateThrusters);
         onState = new OnState(this, moveThrusters, rotateThrusters, shipManager);
+        currentState = offState;
+        currentState.EnterState();
     }
     public void MoveOn()
     {
@@ -26,6 +28,7 @@ public class SMSStateManager
     }
     public void ToggleOnOff()
     {
+        Debug.Log("toggling");
         if (currentState == onState) { MoveOff(); }
         else { MoveOn(); }
     }
