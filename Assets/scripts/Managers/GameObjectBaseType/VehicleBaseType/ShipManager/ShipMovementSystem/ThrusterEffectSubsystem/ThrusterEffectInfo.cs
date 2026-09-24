@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class ThrusterEffectInfo : MonoBehaviour
 {
-    private new ParticleSystem particleSystem;
+    private ParticleSystem particleSystem;
     private ShipMovementSystem shipMovementSystem;
     private ThrusterEffectStateManager thrusterEffectStateManager;
     [SerializeField] private MoveGroup thrusterMoveGroup;
@@ -13,7 +14,7 @@ public class ThrusterEffectInfo : MonoBehaviour
     [SerializeField] private RollRotateGroup rollRotateGroup;
 
     public ParticleSystem ParticleSystem { get { return particleSystem; } }
-    [SerializeField] private enum MoveGroup
+    [Serializable] private enum MoveGroup
     {
         aftThrusters,
         foreThrusters,
@@ -23,19 +24,19 @@ public class ThrusterEffectInfo : MonoBehaviour
         downThrusters
     }
 
-    [SerializeField] private enum PitchRotateGroup
+    [Serializable] private enum PitchRotateGroup
     {
         pitchPositiveThrusters,
         pitchNegativeThrusters,
         none
     }
-    [SerializeField] private enum YawRotateGroup
+    [Serializable] private enum YawRotateGroup
     {
         yawPositiveThrusters,
         yawNegativeThrusters,
         none
     }
-    [SerializeField] private enum RollRotateGroup
+    [Serializable] private enum RollRotateGroup
     {
         rollPositiveThrusters,
         rollNegativeThrusters,
@@ -47,7 +48,6 @@ public class ThrusterEffectInfo : MonoBehaviour
         var main = particleSystem.emission;
         main.enabled = false;
         shipMovementSystem = GetShipMovementSystem();
-
         FindThrusterList(shipMovementSystem.MoveThrusters, thrusterMoveGroup.ToString());
         FindThrusterList(shipMovementSystem.RotateThrusters, pitchRotateGroup.ToString());
         FindThrusterList(shipMovementSystem.RotateThrusters, yawRotateGroup.ToString());
@@ -71,13 +71,13 @@ public class ThrusterEffectInfo : MonoBehaviour
     }
 
     // Finds what list in the shipMovement.MoveThrusters dictionary a thruster belongs to by calling CheckThruster on each KeyValuePair
-    private void FindThrusterList(Dictionary<string,List<ThrusterEffectInfo>> thrusterEffectInfo, string thrusterGroup)
-    {
-        // Debug.Log(thrusterEffectInfo);
-        foreach (KeyValuePair<string, List<ThrusterEffectInfo>> list in thrusterEffectInfo)
-        {
-            bool found = CheckThruster(list, thrusterGroup);
-            if (found) { return; }
+    private void FindThrusterList(Dictionary<string,List<ThrusterEffectInfo>> thrusterEffectInfo, string thrusterGroup) {
+        if (thrusterEffectInfo != null) {
+            foreach (KeyValuePair<string, List<ThrusterEffectInfo>> list in thrusterEffectInfo)
+            {
+                bool found = CheckThruster(list, thrusterGroup);
+                if (found) { return; }
+            }
         }
     }
     // Called on start, checks the thrusters MoveGroup against the KeyValuePair sting, adds to list and returns true if equal, else false

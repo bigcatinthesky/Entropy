@@ -1,8 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using System.Collections.Generic;
-using System;
-using System.Linq;
 
 public class ShipMovementSystem : MonoBehaviour
 {
@@ -14,7 +11,7 @@ public class ShipMovementSystem : MonoBehaviour
     public Dictionary<string,List<ThrusterEffectInfo>> RotateThrusters { get { return rotateThrusters; } }
     public Dictionary<string,List<ThrusterEffectInfo>> MoveThrusters { get { return moveThrusters; } }
 
-    private void initThrusters()
+    private void InitThrusters()
     {
         moveThrusters = new Dictionary<string, List<ThrusterEffectInfo>>
         {
@@ -36,10 +33,10 @@ public class ShipMovementSystem : MonoBehaviour
         };
     }
 
-    void Start()
+    void Awake()
     {
-        shipManager = GetComponent<ShipManager>();
-        initThrusters();   
+        InitThrusters(); 
+        shipManager = GetComponent<ShipManager>();  
         sMSStateManager = new SMSStateManager(moveThrusters, rotateThrusters, shipManager);
 
     }
