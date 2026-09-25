@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "VehicleProfile", menuName = "Scriptable Objects/VehicleProfile/ShipProfile")]
@@ -7,10 +8,13 @@ public class ShipProfile : VehicleProfile
     [SerializeField] private float foreAcclerationForce;
     [SerializeField] private float aftAccelerationForce;
     [SerializeField] private float tangentAcclerationForce;
-    [SerializeField] private float vtolForce;
 
     [Header("Torque Force")]
     [SerializeField] private float torqueForce;
+
+    [Header("VTOL Force")]
+    [SerializeField] private float positiveVTOLForce;
+    [SerializeField] private float negativeVTOLForce;
 
     public float ForeAcclerationForce { get { return foreAcclerationForce; } }
     public float AftAccelerationForce { get { return aftAccelerationForce; } }
