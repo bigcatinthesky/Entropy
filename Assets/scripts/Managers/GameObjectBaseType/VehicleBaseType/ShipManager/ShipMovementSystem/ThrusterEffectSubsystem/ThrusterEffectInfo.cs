@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ThrusterEffectInfo : MonoBehaviour
 {
+    // Handles thruster states & effects
     private ParticleSystem particleSystem;
     private ShipMovementSystem shipMovementSystem;
     private ThrusterEffectStateManager thrusterEffectStateManager;
@@ -12,7 +12,7 @@ public class ThrusterEffectInfo : MonoBehaviour
     [SerializeField] private PitchRotateGroup pitchRotateGroup;
     [SerializeField] private YawRotateGroup yawRotateGroup;
     [SerializeField] private RollRotateGroup rollRotateGroup;
-
+    [SerializeField] private SecondaryMoveGroup secondaryMoveGroup;
     public ParticleSystem ParticleSystem { get { return particleSystem; } }
     [Serializable] private enum MoveGroup
     {
@@ -23,24 +23,32 @@ public class ThrusterEffectInfo : MonoBehaviour
         upThrusters,
         downThrusters
     }
-
     [Serializable] private enum PitchRotateGroup
     {
+        none,
         pitchPositiveThrusters,
-        pitchNegativeThrusters,
-        none
+        pitchNegativeThrusters
     }
     [Serializable] private enum YawRotateGroup
     {
+        none,
         yawPositiveThrusters,
-        yawNegativeThrusters,
-        none
+        yawNegativeThrusters
     }
     [Serializable] private enum RollRotateGroup
     {
+        none,
         rollPositiveThrusters,
         rollNegativeThrusters,
-        none
+    }
+    [Serializable] private enum SecondaryMoveGroup
+    {
+        none,
+        foreThrusters,
+        rightThrusters,
+        leftThrusters,
+        upThrusters,
+        downThrusters
     }
     void Start()
     {
