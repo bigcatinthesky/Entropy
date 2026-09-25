@@ -7,6 +7,7 @@ public class ShipProfile : VehicleProfile
     [SerializeField] private float foreAcclerationForce;
     [SerializeField] private float aftAccelerationForce;
     [SerializeField] private float tangentAcclerationForce;
+    [SerializeField] private float vtolForce;
 
     [Header("Torque Force")]
     [SerializeField] private float torqueForce;
