@@ -20,4 +20,6 @@ public class ShipProfile : VehicleProfile
     public float AftAccelerationForce { get { return aftAccelerationForce; } }
     public float TangentAcclerationForce { get { return tangentAcclerationForce; } }
     public float TorqueForce { get { return torqueForce; } }
+    public float PositiveVTOLForce { get { return positiveVTOLForce; } }
+    public float NegativeVTOLForce { get { return negativeVTOLForce; } }
 }
